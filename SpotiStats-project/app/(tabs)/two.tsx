@@ -1,16 +1,33 @@
-import { Stack } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { ScreenContent } from '~/components/ScreenContent';
+import { getData } from '~/hooks/localStorage';
 
 export default function Home() {
+  const [spotifyData, setSpotifyData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const accessToken = await getData('token');
+
+        const response = await fetch('https://api.spotify.com/v1/me', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        const data = await response.json();
+        setSpotifyData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <>
-      <Stack.Screen options={{ title: 'Tab Two' }} />
-      <View style={styles.container}>
-        <ScreenContent path="app/(tabs)/two.tsx" title="Tab Two" />
-      </View>
-    </>
+    <View style={styles.container}>
+      <Text>{spotifyData ? JSON.stringify(spotifyData) : 'En cours...'}</Text>
+    </View>
   );
 }
 
