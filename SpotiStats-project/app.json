@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SpotiStats-project",
-    "slug": "SpotiStats-project",
+    "slug": "spotistats",
     "version": "1.0.0",
     "newArchEnabled": true,
     "scheme": "spotistats",
@@ -15,15 +15,11 @@
     ],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -33,13 +29,27 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bastien.d.a.spotistats",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.bastien.d.a.spotistats"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "49b1298e-dcdf-4d94-9bed-2d35b9e5ccaa"
       }
-    }
+    },
+    "owner": "bastien.d.a"
   }
 }

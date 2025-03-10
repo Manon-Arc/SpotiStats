@@ -84,7 +84,7 @@ export default function HorizontalSlider({ slides }: HorizontalSliderProps) {
       {/* Bouton "Next" affiché uniquement sur le dernier slide */}
       {slideIndex === slides.length - 1 && (
         <Box position="absolute" bottom={60} left={0} right={0} alignItems="center">
-          <Button title="Commencer !" onPress={() => router.push("/(tabs)/home")} />
+          <Button title="Commencer !" onPress={() => router.push("/login")} />
         </Box>
       )}
     </Box>
