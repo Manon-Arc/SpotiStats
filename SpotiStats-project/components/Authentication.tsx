@@ -1,19 +1,20 @@
-import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
-import * as WebBrowser from 'expo-web-browser';
-import { useEffect } from 'react';
+import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
+import { router } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
+import { useEffect } from "react";
 
-import { Button } from '~/components/Button';
-import { exchangeCodeForToken } from '~/hooks/getSpotifyAccessToken';
-import { storeData } from '~/hooks/localStorage';
-import { Text } from '~/theme';
-import Box from '~/theme/Box';
+import { Button } from "~/components/Button";
+import { exchangeCodeForToken } from "~/hook/getSpotifyAccessToken";
+import { storeData } from "~/hook/localStorage";
+import { Text } from "~/theme";
+import Box from "~/theme/Box";
 
 WebBrowser.maybeCompleteAuthSession();
 
 // Endpoint
 const discovery = {
-  authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-  tokenEndpoint: 'https://accounts.spotify.com/api/token',
+  authorizationEndpoint: "https://accounts.spotify.com/authorize",
+  tokenEndpoint: "https://accounts.spotify.com/api/token",
 };
 
 const client_id = process.env.EXPO_PUBLIC_CLIENT_ID;
@@ -24,32 +25,33 @@ export default function Authentication() {
     {
       clientId: client_id!,
       scopes: [
-        'user-read-email',
-        'playlist-modify-public',
-        'user-read-private',
-        'playlist-modify-private',
+        "user-read-email",
+        "playlist-modify-public",
+        "user-read-private",
+        "playlist-modify-private",
       ],
       // To follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
       // this must be set to false
       usePKCE: false,
       redirectUri: makeRedirectUri({
-        path: 'callback',
+        path: "callback",
       }),
     },
     discovery
   );
 
   useEffect(() => {
-    if (response?.type === 'success') {
+    if (response?.type === "success") {
       (async () => {
         const { code } = response.params;
-        await storeData(code, 'code');
+        await storeData(code, "code");
         const token = await exchangeCodeForToken(
-          makeRedirectUri({ path: 'callback' }),
+          makeRedirectUri({ path: "callback" }),
           client_id!,
           client_secret!
         );
-        await storeData(token, 'token');
+        await storeData(token, "token");
+        router.push("/(tabs)/home");
       })();
     }
   }, [response]);
