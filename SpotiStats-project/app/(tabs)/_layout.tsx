@@ -1,31 +1,56 @@
-import { Link, Tabs } from 'expo-router';
+import { Tabs } from "expo-router";
 
-import { HeaderButton } from '../../components/HeaderButton';
-import { TabBarIcon } from '../../components/TabBarIcon';
+import { TabBarIcon } from "../../components/TabBarIcon";
+
+import { theme } from "~/theme";
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: theme.colors.green,
+        tabBarInactiveTintColor: theme.colors.whiteDark,
+        tabBarStyle: {
+          backgroundColor: theme.colors.grey,
+          borderTopColor: theme.colors.greyBright,
+        },
+        tabBarShowLabel: false,
+        headerShown: true,
+        headerBackButtonDisplayMode: "minimal",
+        headerTintColor: theme.colors.white, // Change text color to green
+        headerTitleAlign: "center", // Center the header text
+        headerStyle: {
+          backgroundColor: theme.colors.grey,
+          borderBottomColor: theme.colors.greyBright,
+        },
       }}>
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <HeaderButton />
-            </Link>
+          title: "Home",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon iconName="home" color={color} library="Foundation" />
           ),
         }}
       />
+
       <Tabs.Screen
-        name="two"
+        name="top"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Top",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon iconName="auto-graph" color={color} library="MaterialIcons" />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="stats"
+        options={{
+          title: "Stats",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon iconName="graph-bar" color={color} library="Foundation" />
+          ),
         }}
       />
     </Tabs>
