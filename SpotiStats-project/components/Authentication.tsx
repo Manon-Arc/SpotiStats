@@ -1,10 +1,12 @@
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect } from 'react';
-import { Button } from 'react-native';
 
+import { Button } from '~/components/Button';
 import { exchangeCodeForToken } from '~/hooks/getSpotifyAccessToken';
 import { storeData } from '~/hooks/localStorage';
+import { Text } from '~/theme';
+import Box from '~/theme/Box';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -53,12 +55,16 @@ export default function Authentication() {
   }, [response]);
 
   return (
-    <Button
-      disabled={!request}
-      title="Login"
-      onPress={() => {
-        promptAsync();
-      }}
-    />
+    <Box height="40%" width="auto" justifyContent="center" gap="m_16">
+      <Text color="white"> Connectez vous avec Spotify</Text>
+      <Button
+        iconName="social-spotify"
+        disabled={!request}
+        title="Login"
+        onPress={() => {
+          promptAsync();
+        }}
+      />
+    </Box>
   );
 }

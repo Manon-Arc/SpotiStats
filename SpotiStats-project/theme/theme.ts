@@ -6,12 +6,14 @@ type NamedStyles<T> = {
 };
 
 const palette = {
-  gray: '#808080',
-  blue: '#007AFF',
-  darkGray: '#38434D',
+  green: '#1ed760',
+  greenBright: '#3be477',
+  greenDark: '#15853c',
   white: '#FFFFFF',
+  whiteDark: '#999999',
   black: '#000000',
-  purple: '#6366F1',
+  grey: '#121212',
+  greyBright: '#1f1f1f',
 };
 
 const theme = createTheme({
@@ -26,6 +28,7 @@ const theme = createTheme({
     ml_24: 24,
     l_32: 32,
     xl_64: 64,
+    xxl_100: 100,
   },
   borderRadii: {
     s_3: 3,
