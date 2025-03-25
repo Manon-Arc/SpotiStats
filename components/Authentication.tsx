@@ -8,6 +8,7 @@ import { exchangeCodeForToken } from "~/hook/getSpotifyAccessToken";
 import { storeData } from "~/hook/localStorage";
 import { Text } from "~/theme";
 import Box from "~/theme/Box";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -29,6 +30,7 @@ export default function Authentication() {
         "playlist-modify-public",
         "user-read-private",
         "playlist-modify-private",
+        "user-top-read",
       ],
       // To follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
       // this must be set to false
@@ -50,7 +52,8 @@ export default function Authentication() {
           client_id!,
           client_secret!
         );
-        await storeData(token, "token");
+        console.log("token", token);
+        await AsyncStorage.setItem("token", token);
         router.push("/(tabs)/home");
       })();
     }

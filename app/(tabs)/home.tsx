@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenContent } from "~/components/ScreenContent";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home() {
   return (

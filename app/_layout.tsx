@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@shopify/restyle";
+import { View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { theme } from "theme";

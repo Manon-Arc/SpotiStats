@@ -44,9 +44,9 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="stats"
+        name="musicStat"
         options={{
-          title: "Stats",
+          title: "musicStat",
           tabBarIcon: ({ color }) => (
             <TabBarIcon iconName="graph-bar" color={color} library="Foundation" />
           ),
