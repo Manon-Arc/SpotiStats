@@ -28,9 +28,6 @@ export default function LoginScreen() {
     );
   }
 
-  if (hasToken) {
-    return <Redirect href="/(tabs)/home" />;
-  }
 
   return (
     <Box flex={1} backgroundColor="black" justifyContent="flex-start" alignItems="center">

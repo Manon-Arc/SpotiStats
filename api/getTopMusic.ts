@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import apiClient from "~/api/apiClient";
 
 export type SpotifyExternalUrls = {
   spotify: string;
@@ -68,25 +69,19 @@ export type TopTracksParams = {
 
 // Fonction pour récupérer les tops morceaux
 const fetchTopTracks = async (params: TopTracksParams = {}): Promise<TopTracksResponse> => {
-  const token = await AsyncStorage.getItem("token");
-  console.log(token);
-
-  if (!token) {
-    throw new Error("Token d'authentification non trouvé");
+  try {
+    const { data } = await apiClient.get("/me/top/tracks", {
+      params: {
+        limit: params.limit || 50,
+        offset: params.offset || 0,
+        time_range: params.time_range || "short_term",
+      }
+    });
+    return data;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des tops morceaux:", error);
+    throw error;
   }
-
-  const { data } = await axios.get("https://api.spotify.com/v1/me/top/tracks", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      limit: params.limit || 20,
-      offset: params.offset || 0,
-      time_range: params.time_range || "medium_term",
-    },
-  });
-
-  return data;
 };
 
 // Hook pour utiliser la requête avec TanStack Query
