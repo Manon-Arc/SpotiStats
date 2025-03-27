@@ -1,4 +1,3 @@
-import { Redirect } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
 
@@ -27,7 +26,6 @@ export default function LoginScreen() {
       </Box>
     );
   }
-
 
   return (
     <Box flex={1} backgroundColor="black" justifyContent="flex-start" alignItems="center">

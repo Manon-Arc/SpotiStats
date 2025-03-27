@@ -1,5 +1,4 @@
 import { getData, storeData } from "~/hook/localStorage";
-import { AccessTokenType } from "~/types/AccessTokenType";
 
 export const exchangeCodeForTokenPKCE = async (
   redirectUri: string,

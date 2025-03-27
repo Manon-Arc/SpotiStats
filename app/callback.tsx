@@ -1,7 +1,7 @@
-import { Stack, useFocusEffect, useRouter } from 'expo-router';
-import { useCallback } from 'react';
+import { Stack, useFocusEffect, useRouter } from "expo-router";
+import { useCallback } from "react";
 
-import { Box, Text } from '~/theme';
+import { Box, Text } from "~/theme";
 
 export default function AuthCallback() {
   const router = useRouter();
@@ -20,8 +20,8 @@ export default function AuthCallback() {
       <Stack.Screen
         options={{
           headerShown: false,
-          presentation: 'transparentModal',
-          animation: 'fade',
+          presentation: "transparentModal",
+          animation: "fade",
         }}
       />
       <Box>

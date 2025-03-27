@@ -1,11 +1,8 @@
 import { useEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
 
 import { useTopTracks } from "~/api/getTopMusic";
-import MusicCard from "~/components/MusicCard";
-import { useStore } from "~/store/zustand";
-import Box from "~/theme/Box";
 import MusicStatScreen from "~/screen/MusicStatScreen";
+import { useStore } from "~/store/zustand";
 
 export default function MusicStat() {
   const setShortTermTopTracks = useStore((state) => state.setShortTermTopTracks);
@@ -33,7 +30,5 @@ export default function MusicStat() {
     longTermsData,
     setLongTermTopTracks,
   ]);
-  return (
-    <MusicStatScreen/>
-  );
+  return <MusicStatScreen />;
 }
