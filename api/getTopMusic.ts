@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { TopTracksResponse } from "~/api/type/type"
+import { TopTracksResponse } from "@api/type/TopTracksResponse"
 
 // Paramètres pour la requête
 export type TopTracksParams = {
@@ -13,7 +13,9 @@ export type TopTracksParams = {
 // Fonction pour récupérer les tops morceaux
 const fetchTopTracks = async (params: TopTracksParams = {}): Promise<TopTracksResponse> => {
   const token = await AsyncStorage.getItem("token");
+  console.log("AAAAAAA")
   console.log(token);
+  console.log("BBBBBBBB")
 
   if (!token) {
     throw new Error("Token d'authentification non trouvé");

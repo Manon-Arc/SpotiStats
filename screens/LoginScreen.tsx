@@ -27,10 +27,10 @@ export default function LoginScreen() {
       </Box>
     );
   }
-
-  if (hasToken) {
-    return <Redirect href="/(tabs)/home" />;
-  }
+  // a commenter pour recharger le token
+  // if (hasToken) {
+  //   return <Redirect href="/(tabs)/home" />;
+  // }
 
   return (
     <Box flex={1} backgroundColor="black" justifyContent="flex-start" alignItems="center">

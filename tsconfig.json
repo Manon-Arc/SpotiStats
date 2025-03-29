@@ -8,7 +8,8 @@
       "~/*": ["*"],
       "@api/*": ["./api/*"],
       "@api/type": ["./api/type/*"],
-      "@screen/*": ["./screen/*"]
+      "@screens/*": ["./screens/*"],
+      "@components/*": ["./components/*"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

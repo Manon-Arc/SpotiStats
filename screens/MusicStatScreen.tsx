@@ -1,8 +1,7 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import MusicCard from "~/components/MusicCard";
+import MusicCard from "@components/MusicCard";
 import { useStore } from "~/store/zustand";
-import Box from "~/theme/Box";
 
 export default function MusicStatScreen() {
   const shortTermsData = useStore((state) => state.shortTermTopTracks);

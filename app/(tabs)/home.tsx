@@ -1,32 +1,29 @@
 import { useEffect } from "react";
 import { useCurrentTrack } from "@api/getCurrentTrack";
+import { useRecentlyPlayedTracks } from "@api/getRecentlyPlayedTrack";
 import { useStore } from "~/store/zustand";
-import HomeScreen from "@screen/HomeScreen";
+import HomeScreen from "@screens/HomeScreen";
 
 export default function Home() {
   const setCurrentTrack = useStore((state) => state.setCurrentTrack)
+  const setRecentlyPlayedTracks = useStore((state) => state.setRecentlyPlayedTracks)
   const currentTrack = useCurrentTrack(1000)
-  console.log(currentTrack)
-  // Récupérer les setters depuis le store
-  // const {
-  //   setCurrentTrack
-  // } = useStore(state => ({
-  //   setCurrentTrack: state.setCurrentTrack
-  // }));
-
-  // Récupérer le morceau en cours
-  //const currentTrackData = useCurrentTrack(10000); // Rafraîchissement toutes les 5 secondes
+  const recentlyPlayedTracks = useRecentlyPlayedTracks({ limit: 10 })
+  console.log(recentlyPlayedTracks)
 
   useEffect(() => {
 
     // Mettre à jour le morceau en cours
     if (currentTrack?.data) {
       setCurrentTrack(currentTrack.data)
-
+    }
+    if (recentlyPlayedTracks?.data) {
+      setRecentlyPlayedTracks(recentlyPlayedTracks.data.items)
     }
   }, [
     currentTrack,
-    // setCurrentTrack
+    recentlyPlayedTracks,
+    setRecentlyPlayedTracks
   ]);
 
   return <HomeScreen />;
