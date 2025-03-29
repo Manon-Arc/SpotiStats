@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import { Button } from "~/components/Button";
 import { exchangeCodeForTokenPKCE } from "~/hook/getSpotifyAccessToken";
-import { storeData } from "~/hook/localStorage";
+import { getData, storeData } from "~/hook/localStorage";
 import { Text } from "~/theme";
 import Box from "~/theme/Box";
 
@@ -43,7 +43,6 @@ export default function Authentication() {
       (async () => {
         const { code } = response.params;
         await storeData(code, "code");
-        console.log("hello");
         // Utilisez le code_verifier du request
         const token = await exchangeCodeForTokenPKCE(
           makeRedirectUri({ path: "callback" }),
@@ -53,6 +52,8 @@ export default function Authentication() {
         );
 
         await AsyncStorage.setItem("token", token);
+        const test = await getData("refreshToken");
+        console.log("test", test);
         console.log("token", token);
         router.push("/(tabs)/home");
       })();

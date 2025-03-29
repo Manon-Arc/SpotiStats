@@ -1,4 +1,5 @@
 import { getData, storeData } from "~/hook/localStorage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const exchangeCodeForTokenPKCE = async (
   redirectUri: string,
@@ -28,7 +29,8 @@ export const exchangeCodeForTokenPKCE = async (
       throw new Error(data.error_description || "Erreur lors de l'échange du code");
     }
     const refreshToken: string = data.refresh_token;
-    await storeData("refreshToken", refreshToken);
+    console.log("The refresh token", refreshToken);
+    await AsyncStorage.setItem("refreshToken", refreshToken);
     return data.access_token;
   } catch (error) {
     console.error("Erreur lors de l'échange du code:", error);
@@ -66,7 +68,7 @@ export const refreshAccessToken = async (): Promise<string> => {
     // Sauvegarder le nouveau token et éventuellement le nouveau refresh token
     await storeData("token", data.access_token);
     if (data.refresh_token) {
-      await storeData(data.refresh_token, "refreshToken");
+      await storeData("refreshToken", data.refresh_token);
     }
 
     return data.access_token;
