@@ -1,23 +1,33 @@
-import { Stack } from "expo-router";
-import { StyleSheet, View } from "react-native";
-
-import { ScreenContent } from "~/components/ScreenContent";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
+import { useCurrentTrack } from "@api/getCurrentTrack";
+import { useStore } from "~/store/zustand";
+import HomeScreen from "@screen/HomeScreen";
 
 export default function Home() {
-  return (
-    <>
-      <Stack.Screen options={{ title: "Home" }} />
-      <View style={styles.container}>
-        <ScreenContent path="app/(tabs)/home.tsx" title="Home" />
-      </View>
-    </>
-  );
-}
+  const setCurrentTrack = useStore((state) => state.setCurrentTrack)
+  const currentTrack = useCurrentTrack(1000)
+  console.log(currentTrack)
+  // Récupérer les setters depuis le store
+  // const {
+  //   setCurrentTrack
+  // } = useStore(state => ({
+  //   setCurrentTrack: state.setCurrentTrack
+  // }));
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-  },
-});
+  // Récupérer le morceau en cours
+  //const currentTrackData = useCurrentTrack(10000); // Rafraîchissement toutes les 5 secondes
+
+  useEffect(() => {
+
+    // Mettre à jour le morceau en cours
+    if (currentTrack?.data) {
+      setCurrentTrack(currentTrack.data)
+
+    }
+  }, [
+    currentTrack,
+    // setCurrentTrack
+  ]);
+
+  return <HomeScreen />;
+}

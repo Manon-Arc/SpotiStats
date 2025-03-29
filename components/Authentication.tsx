@@ -31,6 +31,7 @@ export default function Authentication() {
         "user-read-private",
         "playlist-modify-private",
         "user-top-read",
+        "user-read-currently-playing"
       ],
       // To follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
       // this must be set to false
