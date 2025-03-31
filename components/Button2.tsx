@@ -34,11 +34,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: theme.spacing.s_8,
-    shadowColor: theme.colors.greenBright,
-    shadowOffset: {
-      height: 2,
-      width: 0,
-    },
     shadowOpacity: 0.75,
     shadowRadius: 3.84,
     paddingHorizontal: theme.spacing.ml_24,

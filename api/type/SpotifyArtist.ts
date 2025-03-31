@@ -1,4 +1,5 @@
 import { SpotifyExternalUrls } from '@api/type/SpotifyExternalUrls';
+import { SpotifyImage } from '@api/type/SpotifyImage';
 
 export type SpotifyArtist = {
     external_urls: SpotifyExternalUrls;
@@ -7,11 +8,7 @@ export type SpotifyArtist = {
     name: string;
     genres: string[];
     popularity: number;
-    images: Array<{
-        url: string;
-        height: number | null;
-        width: number | null;
-      }>;
+    images: SpotifyImage[];
     type: string;
     uri: string;
 };

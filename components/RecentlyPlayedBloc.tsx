@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import RecentlyTrackCard from "./RecentlyTrackCard";
-import { SpotifyTrack } from "@api/type/SpotifyTrack";
 import { Box } from "~/theme";
 import { Button2 } from "@components/Button2";
 import { router } from "expo-router";
@@ -10,7 +9,7 @@ import { RecentlyPlayedTracksResponse } from "@api/type/RecentlyPlayedTracksResp
 
 // Type correct pour les props du bloc
 type RecentlyPlayedBlocProps = {
-  tracks: RecentlyPlayedTracksResponse[] | undefined;
+  tracks: RecentlyPlayedTracksResponse | undefined;
 };
 
 // Fonction pour calculer le temps écoulé depuis la lecture
@@ -37,14 +36,13 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
   const firstFiveTracks = tracks.slice(0, 5);
   const secondFiveTracks = tracks.slice(5, 10);
 
-
   return (
     <>
       <View style={styles.container}>
         {firstFiveTracks.map((item, index) => {
-          const track = item.track;
+          const track = item;
           // Vérifier que les propriétés nécessaires existent
-          if (!track?.album?.images?.[0]?.url || !track?.name || !track?.artists?.[0]?.name) {
+          if (!track.album?.images?.[0]?.url || !track?.name || !track?.artists?.[0]?.name) {
             return null;
           }
 
@@ -54,14 +52,14 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
               ImageUrl={track.album.images[0].url}
               Titre={track.name}
               Artiste={track.artists[0].name}
-              Played_ago={calculateTimeSince(item.played_at)}
+              Played_ago={calculateTimeSince(item)}
             />
           );
         })}
       </View>
       <View style={styles.container2}>
         {secondFiveTracks.map((item, index) => {
-          const track = item.track;
+          const track = item.items;
           // Vérifier que les propriétés nécessaires existent
           if (!track?.album?.images?.[0]?.url || !track?.name || !track?.artists?.[0]?.name) {
             return null;
@@ -76,7 +74,7 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
         <Button2
           title="Tout voir"
           onPress={() => {
-            router.push("/(tabs)/recentlyPlayed");
+            router.push("/(tabs)/(home)/recentlyPlayed");
           }}
         />
       </View>

@@ -54,19 +54,12 @@ export default function TabLayout() {
         ),
       }}>
       <Tabs.Screen
-        name="home"
+        name="(home)"
         options={{
           title: "Accueil",
           tabBarIcon: ({ color }) => (
             <TabBarIcon iconName="home" color={color} library="Foundation" />
           ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="recentlyplayed"
-        options={{
-          tabBarButton: () => null,
         }}
       />
 

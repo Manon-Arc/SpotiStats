@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { CurrentPlaybackContext } from "@api/type/CurrentPlaybackContext"
 
+import apiClient from "~/api/apiClient";
+
 // Fonction pour récupérer le morceau en cours d'écoute
 const fetchCurrentTrack = async (): Promise<CurrentPlaybackContext | null> => {
   const token = await AsyncStorage.getItem("token");
@@ -13,10 +15,7 @@ const fetchCurrentTrack = async (): Promise<CurrentPlaybackContext | null> => {
   }
 
   try {
-    const { data } = await axios.get("https://api.spotify.com/v1/me/player/currently-playing", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const { data } = await apiClient.get("me/player/currently-playing", {
     });
 
     return data;

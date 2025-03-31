@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { RecentlyPlayedTracksResponse } from "@api/type/RecentlyPlayedTracksResponse"
 
+import apiClient from "~/api/apiClient";
+
 // Paramètres pour la requête
 export type RecentlyPlayedTracksPrams = {
   limit?: number;
@@ -16,12 +18,9 @@ const fetchRecentlyPlayedTrack = async (params: RecentlyPlayedTracksPrams = {}):
     throw new Error("Token d'authentification non trouvé");
   }
 
-  const { data } = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  const { data } = await apiClient.get("/me/player/recently-played", {
     params: {
-      limit: params.limit || 10,
+      limit: params.limit || 50,
     },
   });
 

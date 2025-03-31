@@ -1,13 +1,5 @@
-import { SpotifyTrack } from "@api/type/SpotifyTrack";
+import { RecentlyPlayedTracks } from "./RecentlyPlayedTracks";
 
 export type RecentlyPlayedTracksResponse = {
-  items: SpotifyTrack[];
-  played_at: string;
-  context?: {
-    type: string;
-    uri: string;
-    external_urls: {
-      spotify: string;
-    };
-  };
+  items: RecentlyPlayedTracks[];
 };

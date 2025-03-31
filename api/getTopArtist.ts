@@ -1,29 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { SpotifyExternalUrls, SpotifyImage } from "./getTopMusic";
-
-import apiClient from "~/api/apiClient";
-
-export type SpotifyFollowers = {
-  href: string | null;
-  total: number;
-};
-
-export type SpotifyArtistFull = {
-  external_urls: SpotifyExternalUrls;
-  followers: SpotifyFollowers;
-  genres: string[];
-  href: string;
-  id: string;
-  images: SpotifyImage[];
-  name: string;
-  popularity: number;
-  type: string;
-  uri: string;
-};
+import { SpotifyExternalUrls } from "@api/type/SpotifyExternalUrls";
+import { SpotifyImage } from "@api/type/SpotifyImage";
+import { SpotifyFollowers } from "@api/type/SpotifyFollowers";
+import apiClient from "@api/apiClient";
+import { SpotifyArtist } from "@api/type/SpotifyArtist";
 
 export type TopArtistsResponse = {
-  items: SpotifyArtistFull[];
+  items: SpotifyArtist[];
   total: number;
   limit: number;
   offset: number;

@@ -14,7 +14,7 @@ export default function LoginScreen() {
     const checkRefreshToken = async () => {
       const refreshToken = await getData("refreshToken");
       if (refreshToken) {
-        router.push("/(tabs)/home");
+        router.push("/(tabs)/(home)");
       }
       setIsLoading(false);
     };

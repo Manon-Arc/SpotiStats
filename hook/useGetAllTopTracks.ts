@@ -1,4 +1,4 @@
-import { useTopTracks } from "~/api/getTopMusic";
+import { useTopTracks } from "@api/getTopMusic";
 
 export function useGetAllTopTracks() {
   const shortTerm = useTopTracks({ time_range: "short_term" });
