@@ -2,9 +2,14 @@ import React from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import CurrentTrackCard from '@components/CurrentTrackCard';
 import RecentlyPlayedBloc from '@components/RecentlyPlayedBloc';
+import TopElementCarrousel from '@components/TopElementCarrousel';
+
 import { useGetCurrentPlaybackContext } from "@hooks/useGetCurrentPlaybackContext";
 import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
 import { theme } from '~/theme';
+import { useGetAllTopTracks } from '@hooks/useGetAllTopTracks';
+import { useGetAllTopArtists } from '@hooks/useGetAllTopArtists';
+import { useGetAllGenres } from '@hooks/useGetAllGenres';
 
 interface HomeScreenProps {
   isLoading: boolean;
@@ -14,6 +19,9 @@ export default function HomeScreen ({isLoading}: HomeScreenProps) {
   // Récupérer les données depuis le store
   const { currentTrack } = useGetCurrentPlaybackContext();
   const { recentlyPlayedTracks } = useGetRecentlyPlayedTracks();
+  const { mediumTracksUser } = useGetAllTopTracks();
+  const { mediumArtistsUser } = useGetAllTopArtists();
+  const { mediumTermGenresUser } = useGetAllGenres();
 
   return (
     <ScrollView style={styles.container}>
@@ -21,12 +29,14 @@ export default function HomeScreen ({isLoading}: HomeScreenProps) {
       <CurrentTrackCard currentTrackContext={currentTrack} />
 
       <Text style={styles.sectionTitle}>Votre top <Text style={{ color: theme.colors.whiteDark, }}>depuis 4 semaines</Text></Text>
-      {/* <TopElementCarrousel artists={topUserArtists} tracks={topUserTracks} albums ={topUserAlbums}/> */}
+      <TopElementCarrousel artists={mediumArtistsUser} tracks={mediumTracksUser} genres={mediumTermGenresUser}/>
 
       <Text style={styles.sectionTitle}>Ecouté récemment</Text>
       <RecentlyPlayedBloc tracks={recentlyPlayedTracks} />
 
       <Text style={styles.sectionTitle}>Le top mondial <Text style={{ color: theme.colors.whiteDark, }}>aujourd'hui</Text></Text>
+      {/* <TopElementCarrousel artists={topUserArtists} tracks={topUserTracks} albums={}/> */}
+
 
     </ScrollView>
   );

@@ -6,9 +6,9 @@ export function useGetAllTopTracks() {
   const longTerm = useTopTracks({ time_range: "long_term" });
 
   return {
-    shortTracks: shortTerm.data?.items || [],
-    mediumTracks: mediumTerm.data?.items || [],
-    longTracks: longTerm.data?.items || [],
+    shortTracksUser: shortTerm.data?.items || [],
+    mediumTracksUser: mediumTerm.data?.items || [],
+    longTracksUser: longTerm.data?.items || [],
     isLoadingTracks: shortTerm.isLoading || mediumTerm.isLoading || longTerm.isLoading,
     error: shortTerm.error || mediumTerm.error || longTerm.error,
   };

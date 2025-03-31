@@ -5,11 +5,11 @@ import { LinearGradient } from "expo-linear-gradient";
 // Définir les types pour les props
 type TopElementBlocProps = {
     title: string;
-    images: string[];
+    images: string[] | undefined;
     type: "artists" | "tracks" | "albums";
 };
 
-const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images, type }) => {
+const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images = [], type }) => {
     // Définir les couleurs du gradient en fonction du type
     const getGradientColors = () => {
         switch (type) {
@@ -24,6 +24,14 @@ const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images, type }) 
         }
     };
 
+    // S'assurer que images est un tableau (protection contre undefined)
+    const safeImages = images || [];
+
+    // Fonction pour obtenir une URL d'image sécurisée avec un fallback
+    const getImageUrl = (index: number, fallback: string = "https://via.placeholder.com/80") => {
+        return safeImages.length > index && safeImages[index] ? safeImages[index] : fallback;
+    };
+
     return (
         <LinearGradient colors={getGradientColors()} style={styles.blocContainer}>
             <View style={[
@@ -35,15 +43,15 @@ const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images, type }) 
                     <>
                         <View style={styles.artistMainImageWrapper}>
                             <Image
-                                source={{ uri: images[0] || "https://via.placeholder.com/80" }}
+                                source={{ uri: getImageUrl(0) }}
                                 style={styles.artistMainImage}
                             />
                         </View>
                         <View style={styles.artistSubImagesContainer}>
-                            {images.slice(1, 4).map((img, index) => (
+                            {[1, 2, 3].map((index) => (
                                 <Image
                                     key={index}
-                                    source={{ uri: img || "https://via.placeholder.com/30" }}
+                                    source={{ uri: getImageUrl(index, "https://via.placeholder.com/30") }}
                                     style={styles.artistSubImage}
                                 />
                             ))}
@@ -53,14 +61,14 @@ const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images, type }) 
                     // Disposition spéciale pour les albums
                     <View style={styles.albumsContainer}>
                         <Image
-                            source={{ uri: images[0] || "https://via.placeholder.com/80" }}
+                            source={{ uri: getImageUrl(0) }}
                             style={styles.albumMainImage}
                         />
                         <View style={styles.albumSubImagesContainer}>
-                            {images.slice(1, 4).map((img, index) => (
+                            {[1, 2, 3].map((index) => (
                                 <Image
                                     key={index}
-                                    source={{ uri: img || "https://via.placeholder.com/30" }}
+                                    source={{ uri: getImageUrl(index, "https://via.placeholder.com/30") }}
                                     style={styles.albumSubImage}
                                 />
                             ))}
@@ -68,10 +76,10 @@ const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images, type }) 
                     </View>
                 ) : (
                     // Disposition pour les titres (tracks)
-                    images.slice(0, 4).map((img, index) => (
+                    [0, 1, 2, 3].map((index) => (
                         <Image
                             key={index}
-                            source={{ uri: img || "https://via.placeholder.com/40" }}
+                            source={{ uri: getImageUrl(index, "https://via.placeholder.com/40") }}
                             style={styles.trackImage}
                         />
                     ))

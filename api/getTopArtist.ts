@@ -1,8 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-
-import { SpotifyExternalUrls } from "@api/type/SpotifyExternalUrls";
-import { SpotifyImage } from "@api/type/SpotifyImage";
-import { SpotifyFollowers } from "@api/type/SpotifyFollowers";
 import apiClient from "@api/apiClient";
 import { SpotifyArtist } from "@api/type/SpotifyArtist";
 
