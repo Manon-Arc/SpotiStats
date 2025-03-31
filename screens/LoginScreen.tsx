@@ -1,4 +1,5 @@
-import { Redirect } from "expo-router";
+import { router } from "expo-router";
+import { navigate } from "expo-router/build/global-state/routing";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
 
@@ -7,17 +8,18 @@ import { getData } from "~/hook/localStorage";
 import { Box, Text } from "~/theme";
 
 export default function LoginScreen() {
-  const [hasToken, setHasToken] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkToken = async () => {
-      const token = await getData("token");
-      setHasToken(!!token);
+    const checkRefreshToken = async () => {
+      const refreshToken = await getData("refreshToken");
+      if (refreshToken) {
+        router.push("/(tabs)/home");
+      }
       setIsLoading(false);
     };
 
-    checkToken();
+    checkRefreshToken();
   }, []);
 
   if (isLoading) {
@@ -27,10 +29,6 @@ export default function LoginScreen() {
       </Box>
     );
   }
-  // a commenter pour recharger le token
-  // if (hasToken) {
-  //   return <Redirect href="/(tabs)/home" />;
-  // }
 
   return (
     <Box flex={1} backgroundColor="black" justifyContent="flex-start" alignItems="center">

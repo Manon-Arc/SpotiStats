@@ -30,12 +30,12 @@ const fetchCurrentTrack = async (): Promise<CurrentPlaybackContext | null> => {
 };
 
 // Hook pour utiliser la requête avec TanStack Query
-export const useCurrentTrack = (refreshInterval = 1000) => {
+export const useCurrentTrack = () => {
   return useQuery({
     queryKey: ["currentTrack"],
     queryFn: fetchCurrentTrack,
     // Refetch toutes les x secondes pour avoir la position mise à jour
-    refetchInterval: refreshInterval,
+    refetchInterval: 1000,
     // Ne pas refetch quand la fenêtre perd le focus
     refetchOnWindowFocus: false,
   });

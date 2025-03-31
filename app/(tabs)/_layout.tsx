@@ -71,9 +71,9 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="top"
+        name="musicStat"
         options={{
-          title: "Top",
+          title: "musicStat",
           tabBarIcon: ({ color }) => (
             <TabBarIcon iconName="auto-graph" color={color} library="MaterialIcons" />
           ),
@@ -81,9 +81,9 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="musicStat"
+        name="top"
         options={{
-          title: "musicStat",
+          title: "Top",
           tabBarIcon: ({ color }) => (
             <TabBarIcon iconName="graph-bar" color={color} library="Foundation" />
           ),

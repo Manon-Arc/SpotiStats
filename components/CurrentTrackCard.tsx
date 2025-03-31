@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { CurrentPlaybackContext } from '@api/type/CurrentPlaybackContext';
 
 type CurrentTrackCardProps = {
-    currentTrackContext: CurrentPlaybackContext | null;
+    currentTrackContext: CurrentPlaybackContext | undefined | null;
 };
 
 const CurrentTrackCard = ({ currentTrackContext }: CurrentTrackCardProps) => {

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
-import { useStore } from '~/store/zustand';
 import CurrentTrackCard from '@components/CurrentTrackCard';
 import RecentlyPlayedBloc from '@components/RecentlyPlayedBloc';
-import TopElementCarrousel from '@components/TopElementCarrousel';
+import { useGetCurrentPlaybackContext } from "~/hook/useGetCurrentPlaybackContext";
+import { useGetRecentlyPlayedTracks } from "~/hook/useGetRecentlyPlayedTracks";
 
 const HomeScreen = () => {
   // Récupérer les données depuis le store
-  const currentTrack = useStore ((state) =>  state.currentTrack)
-  const recentlyPlayedTracks = useStore((state) => state.recentlyPlayedTracks);
+  const { currentTrack } = useGetCurrentPlaybackContext();
+  const { recentlyPlayedTracks } = useGetRecentlyPlayedTracks();
 
   return (
     <ScrollView style={styles.container}>
@@ -17,7 +17,7 @@ const HomeScreen = () => {
 
       <Text style={styles.sectionTitle}>Votre top <Text style={{ color: '#B3B3B3' }}>depuis 4 semaines</Text></Text>
       {/* <TopElementCarrousel artists={topUserArtists} tracks={topUserTracks} albums ={topUserAlbums}/> */}
-      
+
       <Text style={styles.sectionTitle}>Ecouté récemment</Text>
       <RecentlyPlayedBloc tracks={recentlyPlayedTracks} />
 

@@ -1,14 +1,14 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { router } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect } from "react";
 
 import { Button } from "~/components/Button";
-import { exchangeCodeForToken } from "~/hook/getSpotifyAccessToken";
-import { storeData } from "~/hook/localStorage";
+import { exchangeCodeForTokenPKCE } from "~/hook/getSpotifyAccessToken";
+import { getData, storeData } from "~/hook/localStorage";
 import { Text } from "~/theme";
 import Box from "~/theme/Box";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -18,13 +18,10 @@ const discovery = {
   tokenEndpoint: "https://accounts.spotify.com/api/token",
 };
 
-const client_id = process.env.EXPO_PUBLIC_CLIENT_ID;
-const client_secret = process.env.EXPO_PUBLIC_CLIENT_SECRET;
-
 export default function Authentication() {
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: client_id!,
+      clientId: process.env.EXPO_PUBLIC_CLIENT_ID!,
       scopes: [
         "user-read-email",
         "playlist-modify-public",
@@ -34,9 +31,7 @@ export default function Authentication() {
         "user-read-currently-playing",
         "user-read-recently-played"
       ],
-      // To follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
-      // this must be set to false
-      usePKCE: false,
+      usePKCE: true,
       redirectUri: makeRedirectUri({
         path: "callback",
       }),
@@ -45,16 +40,18 @@ export default function Authentication() {
   );
 
   useEffect(() => {
+    console.log(response);
     if (response?.type === "success") {
       (async () => {
         const { code } = response.params;
         await storeData(code, "code");
-        const token = await exchangeCodeForToken(
+        // Utilisez le code_verifier du request
+        const token = await exchangeCodeForTokenPKCE(
           makeRedirectUri({ path: "callback" }),
-          client_id!,
-          client_secret!
+          process.env.EXPO_PUBLIC_CLIENT_ID!,
+          code,
+          request?.codeVerifier || ""
         );
-        console.log("token", token);
         await AsyncStorage.setItem("token", token);
         router.push("/(tabs)/home");
       })();

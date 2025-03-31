@@ -5,23 +5,12 @@ import { SpotifyTrack } from "@api/type/SpotifyTrack";
 import { Box } from "~/theme";
 import { Button2 } from "@components/Button2";
 import { router } from "expo-router";
+import { RecentlyPlayedTracksResponse } from "@api/type/RecentlyPlayedTracksResponse";
 
-// Type pour les items de RecentlyPlayedResponse
-type RecentlyPlayedItem = {
-  track: SpotifyTrack;
-  played_at: string;
-  context?: {
-    type: string;
-    uri: string;
-    external_urls: {
-      spotify: string;
-    };
-  };
-};
 
 // Type correct pour les props du bloc
 type RecentlyPlayedBlocProps = {
-  tracks: RecentlyPlayedItem[];
+  tracks: RecentlyPlayedTracksResponse[] | undefined;
 };
 
 // Fonction pour calculer le temps écoulé depuis la lecture

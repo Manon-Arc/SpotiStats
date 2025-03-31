@@ -1,36 +1,13 @@
-import { useEffect } from "react";
-
-import { useTopTracks } from "@api/getTopMusic";
-import { useStore } from "~/store/zustand";
 import MusicStatScreen from "@screens/MusicStatScreen";
 
-export default function MusicStat() {
-  const setShortTermTopTracks = useStore((state) => state.setShortTermTopTracks);
-  const setMediumTermTopTracks = useStore((state) => state.setMediumTermTopTracks);
-  const setLongTermTopTracks = useStore((state) => state.setLongTermTopTracks);
-  const shortTermsData = useTopTracks({ limit: 50, offset: 0, time_range: "short_term" });
-  const mediumTermsData = useTopTracks({ limit: 50, offset: 0, time_range: "medium_term" });
-  const longTermsData = useTopTracks({ limit: 50, offset: 0, time_range: "long_term" });
+import { useGetAllTopArtists } from "~/hook/useGetAllTopArtists";
+import { useGetAllTopTracks } from "~/hook/useGetAllTopTracks";
 
-  useEffect(() => {
-    if (shortTermsData?.data) {
-      setShortTermTopTracks(shortTermsData.data.items);
-    }
-    if (mediumTermsData?.data) {
-      setMediumTermTopTracks(mediumTermsData.data.items);
-    }
-    if (longTermsData?.data) {
-      setLongTermTopTracks(longTermsData.data.items);
-    }
-  }, [
-    shortTermsData,
-    setShortTermTopTracks,
-    mediumTermsData,
-    setMediumTermTopTracks,
-    longTermsData,
-    setLongTermTopTracks,
-  ]);
-  return (
-    <MusicStatScreen/>
-  );
+export default function MusicStat() {
+  const { isLoadingTracks } = useGetAllTopTracks();
+  const { isLoadingArtists } = useGetAllTopArtists();
+
+  const isLoading = isLoadingTracks || isLoadingArtists;
+
+  return <MusicStatScreen isLoading={isLoading} />;
 }

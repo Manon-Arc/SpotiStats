@@ -21,7 +21,7 @@ export default function MusicCard({ ImageUrl, Titre, Artiste, Placement }: Music
       <TouchableOpacity style={styles.container} activeOpacity={0.7}>
         <Image source={imageSource} style={styles.image} />
         <View style={styles.textContainer}>
-          <Text style={styles.title} numberOfLines={1} >
+          <Text style={styles.title} numberOfLines={1}>
             {Titre}
           </Text>
           <Text style={styles.artist} numberOfLines={1}>
@@ -29,7 +29,7 @@ export default function MusicCard({ ImageUrl, Titre, Artiste, Placement }: Music
           </Text>
         </View>
         <View>
-          <Entypo name="chevron-right" size={24} color={"grey"} />
+          <Entypo name="chevron-right" size={24} color="grey" />
         </View>
       </TouchableOpacity>
     </Box>
