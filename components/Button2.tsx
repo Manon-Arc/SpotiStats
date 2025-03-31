@@ -14,7 +14,7 @@ export const Button2 = forwardRef<View, Button2Props>(
 
     return (
       <TouchableOpacity ref={ref} {...touchableProps} style={[styles.button, touchableProps.style]}>
-        <Text variant="body" textAlign="center" fontWeight="600" style={styles.buttonText}>
+        <Text variant="body" textAlign="center" fontWeight="bold" style={styles.buttonText}>
           {title}
         </Text>
         {iconName && (

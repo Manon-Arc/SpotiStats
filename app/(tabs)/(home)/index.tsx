@@ -1,9 +1,12 @@
-import { useRecentlyPlayedTracks } from "@api/getRecentlyPlayedTrack";
 import HomeScreen from "@screens/HomeScreen";
-import { useGetCurrentPlaybackContext } from "~/hook/useGetCurrentPlaybackContext";
+import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
+import { useGetCurrentPlaybackContext } from "@hooks/useGetCurrentPlaybackContext";
 
 export default function Home() {
-  useGetCurrentPlaybackContext();
-  useRecentlyPlayedTracks({ limit: 10 });
-  return <HomeScreen />;
+  const { isLoadingTrack } = useGetCurrentPlaybackContext();
+  const { isLoadingRecentlyPlayedTracks } = useGetRecentlyPlayedTracks();
+
+  const isLoading = isLoadingTrack || isLoadingRecentlyPlayedTracks;
+
+  return <HomeScreen isLoading={isLoading} />;
 }

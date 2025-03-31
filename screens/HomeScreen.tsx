@@ -2,10 +2,15 @@ import React from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import CurrentTrackCard from '@components/CurrentTrackCard';
 import RecentlyPlayedBloc from '@components/RecentlyPlayedBloc';
-import { useGetCurrentPlaybackContext } from "~/hook/useGetCurrentPlaybackContext";
-import { useGetRecentlyPlayedTracks } from "~/hook/useGetRecentlyPlayedTracks";
+import { useGetCurrentPlaybackContext } from "@hooks/useGetCurrentPlaybackContext";
+import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
+import { theme } from '~/theme';
 
-const HomeScreen = () => {
+interface HomeScreenProps {
+  isLoading: boolean;
+}
+
+export default function HomeScreen ({isLoading}: HomeScreenProps) {
   // Récupérer les données depuis le store
   const { currentTrack } = useGetCurrentPlaybackContext();
   const { recentlyPlayedTracks } = useGetRecentlyPlayedTracks();
@@ -15,13 +20,13 @@ const HomeScreen = () => {
       <Text style={styles.sectionTitle}>En cours d'écoute</Text>
       <CurrentTrackCard currentTrackContext={currentTrack} />
 
-      <Text style={styles.sectionTitle}>Votre top <Text style={{ color: '#B3B3B3' }}>depuis 4 semaines</Text></Text>
+      <Text style={styles.sectionTitle}>Votre top <Text style={{ color: theme.colors.whiteDark, }}>depuis 4 semaines</Text></Text>
       {/* <TopElementCarrousel artists={topUserArtists} tracks={topUserTracks} albums ={topUserAlbums}/> */}
 
       <Text style={styles.sectionTitle}>Ecouté récemment</Text>
       <RecentlyPlayedBloc tracks={recentlyPlayedTracks} />
 
-      <Text style={styles.sectionTitle}>Le top mondial <Text style={{ color: '#B3B3B3' }}>aujourd'hui</Text></Text>
+      <Text style={styles.sectionTitle}>Le top mondial <Text style={{ color: theme.colors.whiteDark, }}>aujourd'hui</Text></Text>
 
     </ScrollView>
   );
@@ -42,4 +47,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;

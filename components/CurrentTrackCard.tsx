@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { CurrentPlaybackContext } from '@api/type/CurrentPlaybackContext';
+import { TabBarIcon } from "@components/TabBarIcon";
+import { theme } from '~/theme';
 
 type CurrentTrackCardProps = {
     currentTrackContext: CurrentPlaybackContext | undefined | null;
@@ -35,42 +37,59 @@ const CurrentTrackCard = ({ currentTrackContext }: CurrentTrackCardProps) => {
     };
 
     return (
-        <View style={styles.currentTrackCard}>
-            {albumCover && (
-                <Image source={{ uri: albumCover }} style={styles.albumCover} />
-            )}
-
-            <View style={styles.trackInfo}>
-                <Text style={styles.trackName}>{trackName}</Text>
-                <Text style={styles.artistName}>{artistNames}</Text>
-
-                <View style={styles.progressContainer}>
-                    <View style={styles.progressBackground}>
-                        <View
-                            style={[
-                                styles.progressBar,
-                                { width: `${progressPercent}%` }
-                            ]}
-                        />
-                    </View>
-                    <View style={styles.timeInfo}>
-                        <Text style={styles.timeText}>{formatTime(progress_ms)}</Text>
-                        <Text style={styles.timeText}>{formatTime(item.duration_ms)}</Text>
+        <View style={styles.cardContainer}>
+            <View style={styles.currentTrackCard}>
+                {/* En-tête avec statut et logo */}
+                <View style={styles.headerContainer}>
+                    <Text style={styles.playingStatus}>
+                        {is_playing ? 'En lecture' : 'En pause'}
+                    </Text>
+                    <View style={styles.spotifyLogoContainer}>
+                        <TabBarIcon iconName="social-spotify" color="#1DB954" library="SimpleLineIcons" />
                     </View>
                 </View>
+                
+                {/* Contenu principal */}
+                <View style={styles.contentContainer}>
+                    {albumCover && (
+                    <View style={{ justifyContent: 'center' }}>
+                        <Image source={{ uri: albumCover }} style={styles.albumCover} />
+                    </View>
+                    )}
 
-                <Text style={styles.playingStatus}>
-                    {is_playing ? 'En lecture' : 'En pause'}
-                </Text>
+                    <View style={styles.trackInfo}>
+                        <Text style={styles.trackName} numberOfLines={1}>{trackName}</Text>
+                        <Text style={styles.artistName} numberOfLines={1}>{artistNames}</Text>
+
+                        <View style={styles.progressContainer}>
+                            <View style={styles.timeInfo}>
+                                <Text style={styles.timeText}>{formatTime(progress_ms)}</Text>
+                                <Text style={styles.timeText}>{formatTime(item.duration_ms)}</Text>
+                            </View>
+                            
+                            <View style={styles.progressBackground}>
+                                <View
+                                    style={[
+                                    styles.progressBar,
+                                    { width: `${progressPercent}%` }
+                                    ]}
+                                />
+                            </View>
+                        </View>
+                    </View>
+                </View>
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    cardContainer: {
+        marginBottom: 20,
+        alignSelf: 'center',
+        width: '100%',
+    },
     container: {
-        padding: 15,
-        backgroundColor: '#282828',
         borderRadius: 8,
     },
     noMusicText: {
@@ -79,15 +98,30 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     currentTrackCard: {
-        backgroundColor: '#282828',
+        backgroundColor: theme.colors.greyBright,
         borderRadius: 8,
         padding: 15,
+        overflow: 'hidden',
+    },
+    headerContainer: {
         flexDirection: 'row',
-        marginBottom: 20,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    contentContainer: {
+        flexDirection: 'row',
+    },
+    spotifyLogoContainer: {
+        borderRadius: 12,
+        width: 24,
+        height: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     albumCover: {
-        width: 100,
-        height: 100,
+        width: 85,
+        height: 85,
         borderRadius: 4,
     },
     trackInfo: {
@@ -97,41 +131,41 @@ const styles = StyleSheet.create({
     },
     trackName: {
         color: '#FFFFFF',
-        fontSize: 18,
+        fontSize: 16, 
         fontWeight: 'bold',
-        marginBottom: 4,
+        marginBottom: 2,
     },
     artistName: {
-        color: '#B3B3B3',
+        color: theme.colors.whiteDark,
         fontSize: 14,
-        marginBottom: 10,
+        marginBottom: 3,
     },
     progressContainer: {
         marginTop: 10,
     },
     progressBackground: {
         height: 4,
-        backgroundColor: '#535353',
+        backgroundColor: theme.colors.greenDarker,
         borderRadius: 2,
+        marginTop: 2,
     },
     progressBar: {
         height: 4,
-        backgroundColor: '#1DB954',
+        backgroundColor: theme.colors.greenDark,
         borderRadius: 2,
     },
     timeInfo: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 5,
+        marginBottom: 3,
     },
     timeText: {
-        color: '#B3B3B3',
+        color: theme.colors.whiteDark,
         fontSize: 12,
     },
     playingStatus: {
-        color: '#1DB954',
-        fontSize: 12,
-        marginTop: 10,
+        color: '#FFFFFF', 
+        fontSize: 18, // Augmenté de 16 à 18px
         fontWeight: 'bold',
     },
 });

@@ -1,7 +1,7 @@
 import { SpotifyTrack } from "@api/type/SpotifyTrack";
 
 export type RecentlyPlayedTracks = {
-  items: SpotifyTrack;
+  track: SpotifyTrack;
   played_at: string;
   context?: {
     type: string;

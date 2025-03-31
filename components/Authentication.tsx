@@ -40,7 +40,6 @@ export default function Authentication() {
   );
 
   useEffect(() => {
-    console.log(response);
     if (response?.type === "success") {
       (async () => {
         const { code } = response.params;
@@ -53,7 +52,7 @@ export default function Authentication() {
           request?.codeVerifier || ""
         );
         await AsyncStorage.setItem("token", token);
-        router.push("/(tabs)/home");
+        router.push("/(tabs)/(home)");
       })();
     }
   }, [response]);

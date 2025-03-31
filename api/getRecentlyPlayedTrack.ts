@@ -6,12 +6,12 @@ import { RecentlyPlayedTracksResponse } from "@api/type/RecentlyPlayedTracksResp
 import apiClient from "~/api/apiClient";
 
 // Paramètres pour la requête
-export type RecentlyPlayedTracksPrams = {
+export type RecentlyPlayedTracksParams = {
   limit?: number;
 };
 
 // Fonction pour récupérer les tops morceaux
-const fetchRecentlyPlayedTrack = async (params: RecentlyPlayedTracksPrams = {}): Promise<RecentlyPlayedTracksResponse> => {
+const fetchRecentlyPlayedTrack = async (params: RecentlyPlayedTracksParams = {}): Promise<RecentlyPlayedTracksResponse> => {
   const token = await AsyncStorage.getItem("token");
 
   if (!token) {
@@ -28,7 +28,7 @@ const fetchRecentlyPlayedTrack = async (params: RecentlyPlayedTracksPrams = {}):
 };
 
 // Hook pour utiliser la requête avec TanStack Query
-export const useRecentlyPlayedTracks = (params: RecentlyPlayedTracksPrams = {}) => {
+export const useRecentlyPlayedTracks = (params: RecentlyPlayedTracksParams = {}) => {
   return useQuery({
     queryKey: ["recentlyPlayedTracks", params],
     queryFn: () => fetchRecentlyPlayedTrack(params),

@@ -30,6 +30,7 @@ const theme = createTheme({
     l_32: 32,
     xl_64: 64,
     xxl_100: 100,
+    safe_are_top: 37,
   },
   borderRadii: {
     s_3: 3,
@@ -50,7 +51,7 @@ const theme = createTheme({
       fontWeight: 'bold',
     },
     defaults: {
-      // We can define a default text variant here.
+      fontFamily: 'Inter',
     },
   },
 });

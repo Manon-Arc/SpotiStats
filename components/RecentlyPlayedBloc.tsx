@@ -1,15 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import RecentlyTrackCard from "./RecentlyTrackCard";
-import { Box } from "~/theme";
+import { Box, Text } from "~/theme";
 import { Button2 } from "@components/Button2";
 import { router } from "expo-router";
-import { RecentlyPlayedTracksResponse } from "@api/type/RecentlyPlayedTracksResponse";
+import { RecentlyPlayedTracks } from "@api/type/RecentlyPlayedTracks";
 
 
 // Type correct pour les props du bloc
 type RecentlyPlayedBlocProps = {
-  tracks: RecentlyPlayedTracksResponse | undefined;
+  tracks: RecentlyPlayedTracks[] | undefined;
 };
 
 // Fonction pour calculer le temps écoulé depuis la lecture
@@ -42,24 +42,26 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
         {firstFiveTracks.map((item, index) => {
           const track = item;
           // Vérifier que les propriétés nécessaires existent
-          if (!track.album?.images?.[0]?.url || !track?.name || !track?.artists?.[0]?.name) {
+          if (!track.track?.album?.images[0]?.url || !track?.track.name || !track?.track.artists[0]?.name) {
+           
             return null;
           }
-
+          
           return (
+
             <RecentlyTrackCard
-              key={`${track.id}-${index}`}
-              ImageUrl={track.album.images[0].url}
-              Titre={track.name}
-              Artiste={track.artists[0].name}
-              Played_ago={calculateTimeSince(item)}
+              key={`${track.track.id}-${index}`}
+              ImageUrl={track.track.album.images[0].url}
+              Titre={track.track.name}
+              Artiste={track.track.artists[0].name}
+              Played_ago={calculateTimeSince(track.played_at)}
             />
           );
         })}
       </View>
       <View style={styles.container2}>
         {secondFiveTracks.map((item, index) => {
-          const track = item.items;
+          const track = item.track;
           // Vérifier que les propriétés nécessaires existent
           if (!track?.album?.images?.[0]?.url || !track?.name || !track?.artists?.[0]?.name) {
             return null;
@@ -67,7 +69,7 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
 
           return (
             <Box key={`${track.id}-${index}`}>
-              <Image source={{ uri: track.album.images[0].url }} style={styles.image} />
+              <Image source={{ uri: track?.album?.images[0].url }} style={styles.image} />
             </Box>
           );
         })}

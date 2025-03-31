@@ -10,6 +10,7 @@
       "@api/type": ["./api/type/*"],
       "@screens/*": ["./screens/*"],
       "@components/*": ["./components/*"],
+      "@hooks/*": ["./hook/*"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
