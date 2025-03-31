@@ -1,34 +1,82 @@
 import { useEffect } from "react";
 
+import { useTopArtists } from "~/api/getTopArtist";
 import { useTopTracks } from "~/api/getTopMusic";
 import MusicStatScreen from "~/screen/MusicStatScreen";
 import { useStore } from "~/store/zustand";
 
 export default function MusicStat() {
+  // Sélecteurs du store
   const setShortTermTopTracks = useStore((state) => state.setShortTermTopTracks);
   const setMediumTermTopTracks = useStore((state) => state.setMediumTermTopTracks);
   const setLongTermTopTracks = useStore((state) => state.setLongTermTopTracks);
-  const shortTermsData = useTopTracks({ limit: 50, offset: 0, time_range: "short_term" });
-  const mediumTermsData = useTopTracks({ limit: 50, offset: 0, time_range: "medium_term" });
-  const longTermsData = useTopTracks({ limit: 50, offset: 0, time_range: "long_term" });
+  const setShortTermTopArtists = useStore((state) => state.setShortTermTopArtists);
+  const setMediumTermTopArtists = useStore((state) => state.setMediumTermTopArtists);
+  const setLongTermTopArtists = useStore((state) => state.setLongTermTopArtists);
+
+  // Requêtes pour les données
+  const { data: shortTermData, isLoading: isLoadingShortTracks } = useTopTracks();
+  const { data: mediumTermData, isLoading: isLoadingMediumTracks } = useTopTracks({
+    time_range: "medium_term",
+  });
+  const { data: longTermData, isLoading: isLoadingLongTracks } = useTopTracks({
+    time_range: "long_term",
+  });
+
+  const { data: shortTermArtistsData, isLoading: isLoadingShortArtists } = useTopArtists();
+  const { data: mediumTermArtistsData, isLoading: isLoadingMediumArtists } = useTopArtists({
+    time_range: "medium_term",
+  });
+  const { data: longTermArtistsData, isLoading: isLoadingLongArtists } = useTopArtists({
+    time_range: "long_term",
+  });
+
+  // Effet pour les pistes
+  useEffect(() => {
+    if (shortTermData?.items) {
+      setShortTermTopTracks(shortTermData.items);
+    }
+  }, [shortTermData, setShortTermTopTracks]);
 
   useEffect(() => {
-    if (shortTermsData?.data) {
-      setShortTermTopTracks(shortTermsData.data.items);
+    if (mediumTermData?.items) {
+      setMediumTermTopTracks(mediumTermData.items);
     }
-    if (mediumTermsData?.data) {
-      setMediumTermTopTracks(mediumTermsData.data.items);
+  }, [mediumTermData, setMediumTermTopTracks]);
+
+  useEffect(() => {
+    if (longTermData?.items) {
+      setLongTermTopTracks(longTermData.items);
     }
-    if (longTermsData?.data) {
-      setLongTermTopTracks(longTermsData.data.items);
+  }, [longTermData, setLongTermTopTracks]);
+
+  // Effet pour les artistes
+  useEffect(() => {
+    if (shortTermArtistsData?.items) {
+      setShortTermTopArtists(shortTermArtistsData.items);
     }
-  }, [
-    shortTermsData,
-    setShortTermTopTracks,
-    mediumTermsData,
-    setMediumTermTopTracks,
-    longTermsData,
-    setLongTermTopTracks,
-  ]);
-  return <MusicStatScreen />;
+  }, [shortTermArtistsData, setShortTermTopArtists]);
+
+  useEffect(() => {
+    if (mediumTermArtistsData?.items) {
+      setMediumTermTopArtists(mediumTermArtistsData.items);
+    }
+  }, [mediumTermArtistsData, setMediumTermTopArtists]);
+
+  useEffect(() => {
+    if (longTermArtistsData?.items) {
+      setLongTermTopArtists(longTermArtistsData.items);
+    }
+  }, [longTermArtistsData, setLongTermTopArtists]);
+
+  // État de chargement global
+  const isLoading =
+    isLoadingShortTracks ||
+    isLoadingMediumTracks ||
+    isLoadingLongTracks ||
+    isLoadingShortArtists ||
+    isLoadingMediumArtists ||
+    isLoadingLongArtists;
+
+  return <MusicStatScreen isLoading={isLoading} />;
 }

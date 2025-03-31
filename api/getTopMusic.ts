@@ -1,6 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
 import apiClient from "~/api/apiClient";
 
 export type SpotifyExternalUrls = {
@@ -75,7 +74,7 @@ const fetchTopTracks = async (params: TopTracksParams = {}): Promise<TopTracksRe
         limit: params.limit || 50,
         offset: params.offset || 0,
         time_range: params.time_range || "short_term",
-      }
+      },
     });
     return data;
   } catch (error) {
