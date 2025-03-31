@@ -3,6 +3,7 @@ import { Text, StyleSheet, ScrollView } from 'react-native';
 import { useStore } from '~/store/zustand';
 import CurrentTrackCard from '@components/CurrentTrackCard';
 import RecentlyPlayedBloc from '@components/RecentlyPlayedBloc';
+import TopElementCarrousel from '@components/TopElementCarrousel';
 
 const HomeScreen = () => {
   // Récupérer les données depuis le store
@@ -13,10 +14,15 @@ const HomeScreen = () => {
     <ScrollView style={styles.container}>
       <Text style={styles.sectionTitle}>En cours d'écoute</Text>
       <CurrentTrackCard currentTrackContext={currentTrack} />
+
+      <Text style={styles.sectionTitle}>Votre top <Text style={{ color: '#B3B3B3' }}>depuis 4 semaines</Text></Text>
+      {/* <TopElementCarrousel artists={topUserArtists} tracks={topUserTracks} albums ={topUserAlbums}/> */}
       
-      {/* Vous pouvez ajouter d'autres sections ici */}
       <Text style={styles.sectionTitle}>Ecouté récemment</Text>
       <RecentlyPlayedBloc tracks={recentlyPlayedTracks} />
+
+      <Text style={styles.sectionTitle}>Le top mondial <Text style={{ color: '#B3B3B3' }}>aujourd'hui</Text></Text>
+
     </ScrollView>
   );
 };

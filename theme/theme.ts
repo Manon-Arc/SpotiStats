@@ -9,6 +9,7 @@ const palette = {
   green: '#1ed760',
   greenBright: '#3be477',
   greenDark: '#15853c',
+  greenDarker: '#163020',
   white: '#FFFFFF',
   whiteDark: '#999999',
   black: '#000000',
