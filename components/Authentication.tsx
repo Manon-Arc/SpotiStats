@@ -51,8 +51,6 @@ export default function Authentication() {
           request?.codeVerifier || ""
         );
         await AsyncStorage.setItem("token", token);
-        const test = await getData("token");
-        console.log(test);
         router.push("/(tabs)/home");
       })();
     }
