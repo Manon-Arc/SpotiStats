@@ -22,13 +22,6 @@ export function useGetAllGenres() {
   const mediumTermGenreCounts = getGenreCounts(mediumTerm.data?.items || []);
   const longTermGenreCounts = getGenreCounts(longTerm.data?.items || []);
 
-  // Comptage global
-  const allGenreCounts = getGenreCounts([
-    ...(shortTerm.data?.items || []),
-    ...(mediumTerm.data?.items || []),
-    ...(longTerm.data?.items || [])
-  ]);
-
   return {
     shortTermGenresUser: shortTermGenreCounts || [],
     mediumTermGenresUser: mediumTermGenreCounts || [],

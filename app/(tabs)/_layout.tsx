@@ -80,9 +80,9 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-      name="top"
+      name="userStat"
       options={{
-        title: "Top",
+        title: "Statistiques utilisateur",
         tabBarIcon: ({ color }) => (
         <TabBarIcon iconName="graph-bar" color={color} library="Foundation" />
         ),

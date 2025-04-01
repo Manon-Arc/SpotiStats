@@ -25,7 +25,7 @@ const TopElementCarrouselGenres: React.FC<TopElementCarrouselGenresProps> = ({
         console.log("handlePress");
         if (!isGlobal) {
             console.log("handlePress isGlobal");
-            router.push("/(tabs)/top");
+            router.push("/(tabs)/userStat");
         }
     };
     const sortedGenres = [...items]
