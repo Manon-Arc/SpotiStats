@@ -6,6 +6,7 @@ import { SpotifyTrack } from "@api/type/SpotifyTrack";
 import { SpotifyAlbum } from "@api/type/SpotifyAlbum";
 import { SpotifyArtist } from "@api/type/SpotifyArtist";
 import { GenreCount } from "@api/type/GenreCount";
+import { router } from "expo-router";
 
 interface TopElementCarrouselProps {
   artists?: SpotifyArtist[];
@@ -20,12 +21,17 @@ type CarrouselElement = {
   name: string;
   data: (SpotifyArtist | SpotifyTrack | GenreCount)[];
   type: "artists" | "tracks" | "genres";
+  onClick?: () => void;
+};
+
+const goToTop = async () => {
+  router.replace("/");
 };
 
 const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElementCarrouselProps) => {
   // Création des éléments du carrousel avec typage strict
   const elements: CarrouselElement[] = [
-    { id: "artists", name: "Artistes", data: artists, type: "artists" } as CarrouselElement,
+    { id: "artists", name: "Artistes", data: artists, type: "artists", onClick: goToTop} as CarrouselElement,
     { id: "tracks", name: "Titres", data: tracks, type: "tracks" } as CarrouselElement,
     { id: "genres", name: "Genres", data: genres, type: "genres" } as CarrouselElement,
   ].filter((item) => item.data.length > 0);
@@ -53,7 +59,7 @@ const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElem
           <TopElementBlocGenres
             items={item.data as GenreCount[]}
             title={item.name}
-            maxGenres={8}
+            maxGenres={5}
           />
         ) : (
           // Pour les autres types, utiliser TopElementBloc
@@ -62,7 +68,7 @@ const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElem
             images={item.data.map((element) => {
               // Type guard pour s'assurer que getImageUrl reçoit le bon type
               if ('name' in element && ('images' in element || 'album' in element)) {
-                return getImageUrl(element as SpotifyArtist | SpotifyTrack );
+                return getImageUrl(element as SpotifyArtist | SpotifyTrack);
               }
               return undefined;
             }).filter(Boolean) as string[]}

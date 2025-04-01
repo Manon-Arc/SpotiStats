@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { theme } from "~/theme";
 
 // Définir les types pour les props
 type TopElementBlocProps = {
@@ -14,13 +15,11 @@ const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images = [], typ
     const getGradientColors = () => {
         switch (type) {
             case "artists":
-                return ["#004d00", "#001a00"] as const; // Vert
+                return [theme.colors.greyBright, "#007000"] as const; // Vert
             case "tracks":
-                return ["#4d0000", "#1a0000"] as const; // Rouge
-            case "albums":
-                return ["#001a4d", "#000d26"] as const; // Bleu
+                return [theme.colors.greyBright, "#7d0101"] as const; // Rouge
             default:
-                return ["#333333", "#111111"] as const; // Couleur par défaut
+                return [theme.colors.greyBright, "#333333"] as const; // Couleur par défaut
         }
     };
 
@@ -33,84 +32,194 @@ const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images = [], typ
     };
 
     return (
-        <LinearGradient colors={getGradientColors()} style={styles.blocContainer}>
-            <View style={[
-                styles.imageContainer,
-                type === "artists" && styles.artistImageContainer,
-                type === "albums" && styles.albumImageContainer
-            ]}>
-                {type === "artists" ? (
-                    <>
-                        <View style={styles.artistMainImageWrapper}>
-                            <Image
-                                source={{ uri: getImageUrl(0) }}
-                                style={styles.artistMainImage}
-                            />
-                        </View>
-                        <View style={styles.artistSubImagesContainer}>
-                            {[1, 2, 3].map((index) => (
+        <LinearGradient
+            colors={getGradientColors()}
+            style={styles.blocContainer}
+            start={{ x: 0.5, y: 0.5 }}
+            end={{ x: -0.5, y: -0.5 }}
+        >
+            <View style={styles.contentContainer}>
+                <View style={[
+                    styles.imageContainer,
+                    type === "artists" && styles.artistImageContainer,
+                ]}>
+                    {type === "artists" ? (
+                        // Nouvelle disposition des artistes sur 3 lignes
+                        <View style={styles.artistsGrid}>
+                            {/* Première ligne: image centrale */}
+                            <View style={styles.artistsRow1}>
                                 <Image
-                                    key={index}
-                                    source={{ uri: getImageUrl(index, "https://via.placeholder.com/30") }}
-                                    style={styles.artistSubImage}
+                                    source={{ uri: getImageUrl(0) }}
+                                    style={styles.artistLargeImage}
                                 />
-                            ))}
-                        </View>
-                    </>
-                ) : type === "albums" ? (
-                    // Disposition spéciale pour les albums
-                    <View style={styles.albumsContainer}>
-                        <Image
-                            source={{ uri: getImageUrl(0) }}
-                            style={styles.albumMainImage}
-                        />
-                        <View style={styles.albumSubImagesContainer}>
-                            {[1, 2, 3].map((index) => (
+                            </View>
+                            
+                            {/* Deuxième ligne: 2 images non alignées en hauteur */}
+                            <View style={styles.artistsRow2}>
+                                <View style={styles.artistRow2Left}>
+                                    <Image
+                                        source={{ uri: getImageUrl(1, "https://via.placeholder.com/45") }}
+                                        style={styles.artistMediumImage}
+                                    />
+                                </View>
+                                <View style={styles.artistRow2Right}>
+                                    <Image
+                                        source={{ uri: getImageUrl(2, "https://via.placeholder.com/40") }}
+                                        style={styles.artistSmallImage}
+                                    />
+                                </View>
+                            </View>
+                            
+                            {/* Troisième ligne: image vers la gauche */}
+                            <View style={styles.artistsRow3}>
                                 <Image
-                                    key={index}
-                                    source={{ uri: getImageUrl(index, "https://via.placeholder.com/30") }}
-                                    style={styles.albumSubImage}
+                                    source={{ uri: getImageUrl(3, "https://via.placeholder.com/35") }}
+                                    style={styles.artistXSmallImage}
                                 />
-                            ))}
+                            </View>
                         </View>
-                    </View>
-                ) : (
-                    // Disposition pour les titres (tracks)
-                    [0, 1, 2, 3].map((index) => (
-                        <Image
-                            key={index}
-                            source={{ uri: getImageUrl(index, "https://via.placeholder.com/40") }}
-                            style={styles.trackImage}
-                        />
-                    ))
-                )}
+                    ) : (
+                        // Disposition en grille 2x2 pour les tracks
+                        <View style={styles.tracksGrid}>
+                            <View style={styles.tracksRow}>
+                                {/* Image principale (plus grande) */}
+                                <Image
+                                    source={{ uri: getImageUrl(0) }}
+                                    style={styles.trackLargeImage}
+                                />
+                                {/* Deuxième image (taille moyenne-grande) */}
+                                <Image
+                                    source={{ uri: getImageUrl(1, "https://via.placeholder.com/50") }}
+                                    style={styles.trackMediumLargeImage}
+                                />
+                            </View>
+                            <View style={styles.tracksRow2}>
+                                {/* Troisième image (taille moyenne) */}
+                                <Image
+                                    source={{ uri: getImageUrl(2, "https://via.placeholder.com/45") }}
+                                    style={styles.trackMediumImage}
+                                />
+                                {/* Quatrième image (plus petite) */}
+                                <Image
+                                    source={{ uri: getImageUrl(3, "https://via.placeholder.com/40") }}
+                                    style={styles.trackSmallImage}
+                                />
+                            </View>
+                        </View>
+                    )}
+                </View>
             </View>
-            <Text style={styles.title}>{title}</Text>
+
+            {/* Zone inférieure pour le titre */}
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>{title}</Text>
+            </View>
         </LinearGradient>
     );
 };
 
 const styles = StyleSheet.create({
     blocContainer: {
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 15,
         borderRadius: 12,
         marginRight: 16,
-        minWidth: 140,
-        minHeight: 160,
+        width: 170,
+        height: 250,
+        flexDirection: 'column',
+    },
+    contentContainer: {
+        flex: 0.65,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
+        paddingTop: 45,
+    },
+    titleContainer: {
+        flex: 0.35,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 12,
+        paddingHorizontal: 10,
+        // backgroundColor: "red"
     },
     imageContainer: {
-        flexDirection: "row",
-        flexWrap: "wrap",
+        width: '100%',
+        height: '100%',
         justifyContent: "center",
         alignItems: "center",
     },
-    // Styles pour les artistes
+    // Styles pour les artistes (nouvelle disposition)
     artistImageContainer: {
+        width: '100%',
+        height: '100%',
+    },
+    artistsGrid: {
+        width: '100%',
+        height: '100%',
         flexDirection: "column",
+        justifyContent: "center",
+    },
+    // Première ligne: image au centre
+    artistsRow1: {
+        width: '100%',
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    artistLargeImage: {
+        width: 65,
+        height: 65,
+        borderRadius: 32.5,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.3)",
+    },
+    // Deuxième ligne: 2 images non alignées
+    artistsRow2: {
+        width: '100%',
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+    },
+    artistRow2Left: {
+        paddingTop: 10,
+    },
+    artistRow2Right: {
+        paddingBottom: 10,
+    },
+    artistMediumImage: {
+        width: 45,
+        height: 45,
+        borderRadius: 22.5,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.25)",
+    },
+    artistSmallImage: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.2)",
+    },
+    // Troisième ligne: image vers la gauche
+    artistsRow3: {
+        width: '100%',
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        paddingRight: 45,
         alignItems: "center",
     },
+    artistRow3Spacer: {
+        flex: 1,
+    },
+    artistXSmallImage: {
+        width: 35,
+        height: 35,
+        borderRadius: 17.5,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.15)",
+    },
+    // Styles existants pour les artistes (conservés pour référence)
     artistMainImageWrapper: {
         width: 80,
         height: 80,
@@ -138,22 +247,67 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "rgba(255,255,255,0.2)",
     },
-    // Styles pour les tracks
-    trackImage: {
-        width: 40,
-        height: 40,
+    // Styles pour les tracks (inchangés)
+    tracksGrid: {
+        width: '100%',
+        height: '100%',
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    tracksRow: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "flex-end",
+        width: '100%',
+        marginBottom: 8,
+    },
+    tracksRow2: {
+        flexDirection: "row",
+        justifyContent: "center",
+        width: '100%',
+        marginBottom: 8,
+    },
+    trackLargeImage: {
+        width: 70,
+        height: 70,
+        borderRadius: 8,
+        marginRight: 8,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.3)",
+    },
+    trackMediumLargeImage: {
+        width: 60,
+        height: 60,
+        borderRadius: 7,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.25)",
+    },
+    trackMediumImage: {
+        width: 55,
+        height: 55,
         borderRadius: 6,
-        margin: 4,
+        marginRight: 8,
         borderWidth: 1,
         borderColor: "rgba(255,255,255,0.2)",
     },
-    // Styles pour les albums
+    trackSmallImage: {
+        width: 45,
+        height: 45,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.15)",
+    },
+    // Styles pour les albums (inchangés)
     albumImageContainer: {
         flexDirection: "column",
         alignItems: "center",
     },
     albumsContainer: {
         alignItems: "center",
+        justifyContent: "center",
+        width: '100%',
+        height: '100%',
     },
     albumMainImage: {
         width: 80,
@@ -169,22 +323,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         maxWidth: 100,
     },
-    albumSubImage: {
-        width: 28,
-        height: 28,
-        borderRadius: 4,
-        margin: 2,
-        borderWidth: 1,
-        borderColor: "rgba(255,255,255,0.2)",
-    },
-    // Style du titre
     title: {
-        marginTop: 12,
-        fontSize: 14,
+        fontSize: 20,
         color: "white",
         textAlign: "center",
         fontWeight: "bold",
-    },
+    }
 });
 
 export default TopElementBloc;

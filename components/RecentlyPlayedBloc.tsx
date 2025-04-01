@@ -46,7 +46,7 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
         })}
       </View>
       <View style={styles.container2}>
-        <Box style={{ flexDirection: "row", gap: 8, justifyContent: "space-between" }}>
+        <Box style={styles.imgContainer}>
           {secondFiveTracks.map((item, index) => {
             const track = item.track;
             // Vérifier que les propriétés nécessaires existent
@@ -55,9 +55,7 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
             }
 
             return (
-              <Box key={`${track.id}-${index}`}>
-                <Image source={{ uri: track?.album?.images[0].url }} style={styles.image} />
-              </Box>
+              <Image key={`${track.id}-${index}`} source={{ uri: track?.album?.images[0].url }} style={styles.image} />
             );
           })}
         </Box>
@@ -86,9 +84,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  imgContainer: {
+    flexDirection: "row",
+    flex: 1,
+    gap: 8,
+    justifyContent: "space-between",
+  },
   image: {
+    flex: 1,
     width: 45,
     height: 45,
     borderRadius: 4,
+    aspectRatio: 1,
   },
 });

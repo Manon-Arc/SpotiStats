@@ -13,6 +13,12 @@ import { useGetAllTopArtistsUser } from '@hooks/useGetAllTopArtistsUser';
 import { useGetAllGenres } from '@hooks/useGetAllGenresUser';
 import { useGetAllTopTracks } from '@hooks/useGetAllTopTracks';
 import { View } from 'moti';
+import { router } from 'expo-router';
+
+
+const handleGoList = async () => {
+  router.replace("/");
+};
 
 interface HomeScreenProps {
   isLoading: boolean;
@@ -25,8 +31,6 @@ export default function HomeScreen({ isLoading }: HomeScreenProps) {
   const { mediumArtistsUser } = useGetAllTopArtistsUser();
   const { mediumTermGenresUser } = useGetAllGenres();
   const { topTrackGlobal } = useGetAllTopTracks();
-  console.log("GLOBAL", JSON.stringify(topTrackGlobal));
-  console.log("USER", JSON.stringify(mediumTracksUser));
 
   return (
     isLoading ? (
@@ -34,7 +38,7 @@ export default function HomeScreen({ isLoading }: HomeScreenProps) {
         <Loader />
       </View>
     ) : (
-      
+
       <ScrollView style={styles.container}>
 
         <Box style={styles.section}>
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    backgroundColor: '#121212',
+    backgroundColor: theme.colors.grey,
     padding: 15,
   },
   section: {
@@ -82,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.colors.black
+    backgroundColor: theme.colors.grey
   }
 });
 
