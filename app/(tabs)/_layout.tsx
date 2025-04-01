@@ -9,6 +9,7 @@ export default function TabLayout() {
   const { userProfile } = useSpotifyAuth();
   const path = usePathname();
   const isHome = path.includes("recentlyPlayed");
+  const hideHeader = path.includes("musicStatDetails") || path.includes("artistStatDetails");
 
   return (
     <Tabs
@@ -69,13 +70,14 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-      name="musicStat"
-      options={{
-        title: "musicStat",
-        tabBarIcon: ({ color }) => (
-        <TabBarIcon iconName="auto-graph" color={color} library="MaterialIcons" />
-        ),
-      }}
+        name="(musicStat)"
+        options={{
+          title: "musicStat",
+          headerShown: !hideHeader,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon iconName="auto-graph" color={color} library="MaterialIcons" />
+          ),
+        }}
       />
 
       <Tabs.Screen

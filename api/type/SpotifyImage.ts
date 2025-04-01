@@ -1,5 +1,5 @@
 export type SpotifyImage = {
-    height: number;
-    width: number;
-    url: string;
+  height: number;
+  width: number;
+  url: string;
 };
