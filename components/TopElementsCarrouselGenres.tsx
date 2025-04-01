@@ -1,21 +1,33 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { GenreCount } from "@api/type/GenreCount";
 import { theme } from "~/theme";
+import { router } from "expo-router";
 
 // Définir les types pour les props
 type TopElementCarrouselGenresProps = {
     items: GenreCount[];
     title?: string;
     maxGenres?: number;
+    isGlobal?: boolean;
 };
+
 
 const TopElementCarrouselGenres: React.FC<TopElementCarrouselGenresProps> = ({
     items,
     title,
-    maxGenres = 8
+    maxGenres = 8,
+    isGlobal,
 }) => {
+
+    const handlePress = () => {
+        console.log("handlePress");
+        if (!isGlobal) {
+            console.log("handlePress isGlobal");
+            router.push("/(tabs)/top");
+        }
+    };
     const sortedGenres = [...items]
         .sort((a, b) => b.percentage - a.percentage)
         .slice(0, maxGenres);
@@ -23,48 +35,58 @@ const TopElementCarrouselGenres: React.FC<TopElementCarrouselGenresProps> = ({
     const maxPercentage = sortedGenres[0]?.percentage || 1;
 
     return (
-        <LinearGradient
-            colors={[theme.colors.greyBright, "#adad05"]}
-            style={styles.blocContainer}
-            start={{ x: 0.5, y: 0.5 }}
-            end={{ x: -0.5, y: -0.5 }}
+        <Pressable
+            onPress={() => handlePress()}
+            style={({ pressed }) => [
+                styles.pressableContainer,
+                pressed && isGlobal ? { opacity: 0.9 } : {}
+            ]}
+            disabled={isGlobal}
         >
-            {/* Zone supérieure pour le contenu (65%) */}
-            <View style={styles.contentContainer}>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                >
-                    {sortedGenres.map((genre, index) => {
-                        const fontSize = 8 + Math.min(8, (genre.percentage / maxPercentage) * 8);
-                        const fontWeight = index < 3 ? 'bold' : 'normal';
+            <LinearGradient
+                colors={[theme.colors.greyBright, "#adad05"]}
+                style={styles.blocContainer}
+                start={{ x: 0.5, y: 0.5 }}
+                end={{ x: -0.5, y: -0.5 }}
+            >
+                {/* Zone supérieure pour le contenu (65%) */}
+                <View style={styles.contentContainer}>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {sortedGenres.map((genre, index) => {
+                            const fontSize = 8 + Math.min(8, (genre.percentage / maxPercentage) * 8);
+                            const fontWeight = index < 3 ? 'bold' : 'normal';
 
-                        return (
-                            <View key={genre.name} style={styles.genreItem}>
-                                <Text
-                                    style={[
-                                        styles.genreText,
-                                        {
-                                            fontSize,
-                                            fontWeight: fontWeight as 'bold' | 'normal'
-                                        }
-                                    ]}
-                                >
-                                    {genre.name}
-                                </Text>
-                                <Text style={styles.percentageText}>
-                                    {Math.round(genre.percentage)}%
-                                </Text>
-                            </View>
-                        );
-                    })}
-                </ScrollView>
-            </View>
-            
-            {/* Zone inférieure pour le titre (35%) */}
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-        </LinearGradient>
+                            return (
+                                <View key={genre.name} style={styles.genreItem}>
+                                    <Text
+                                        style={[
+                                            styles.genreText,
+                                            {
+                                                fontSize,
+                                                fontWeight: fontWeight as 'bold' | 'normal'
+                                            }
+                                        ]}
+                                    >
+                                        {genre.name}
+                                    </Text>
+                                    <Text style={styles.percentageText}>
+                                        {Math.round(genre.percentage)}%
+                                    </Text>
+                                </View>
+                            );
+                        })}
+                    </ScrollView>
+                </View>
+
+                {/* Zone inférieure pour le titre (35%) */}
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>{title}</Text>
+                </View>
+            </LinearGradient>
+        </Pressable>
+
     );
 };
 
@@ -75,7 +97,6 @@ const styles = StyleSheet.create({
         width: 170,
         height: 250,
         flexDirection: 'column',
-
     },
     contentContainer: {
         flex: 0.70,
@@ -121,6 +142,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
         paddingVertical: 2,
         borderRadius: 4,
+    },
+    pressableContainer: {
+        borderRadius: 12,
+        marginRight: 16,
     }
 });
 

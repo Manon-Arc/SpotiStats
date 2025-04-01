@@ -13,6 +13,7 @@ interface TopElementCarrouselProps {
   tracks?: SpotifyTrack[];
   albums?: SpotifyAlbum[];
   genres?: GenreCount[];
+  isGlobal?: boolean;
 }
 
 // Type pour les éléments du carrousel
@@ -21,17 +22,13 @@ type CarrouselElement = {
   name: string;
   data: (SpotifyArtist | SpotifyTrack | GenreCount)[];
   type: "artists" | "tracks" | "genres";
-  onClick?: () => void;
 };
 
-const goToTop = async () => {
-  router.replace("/");
-};
 
-const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElementCarrouselProps) => {
+const TopElementCarrousel = ({ artists = [], tracks = [], genres = [], isGlobal = false }: TopElementCarrouselProps) => {
   // Création des éléments du carrousel avec typage strict
   const elements: CarrouselElement[] = [
-    { id: "artists", name: "Artistes", data: artists, type: "artists", onClick: goToTop} as CarrouselElement,
+    { id: "artists", name: "Artistes", data: artists, type: "artists" } as CarrouselElement,
     { id: "tracks", name: "Titres", data: tracks, type: "tracks" } as CarrouselElement,
     { id: "genres", name: "Genres", data: genres, type: "genres" } as CarrouselElement,
   ].filter((item) => item.data.length > 0);
@@ -47,6 +44,14 @@ const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElem
     return undefined;
   };
 
+  const handlePress = () => {
+    console.log("handlePress");
+    if (!isGlobal) {
+      console.log("handlePress isGlobal");
+      router.push("/(musicStat)");
+    }
+  };
+
   return (
     <FlatList
       horizontal
@@ -60,6 +65,7 @@ const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElem
             items={item.data as GenreCount[]}
             title={item.name}
             maxGenres={5}
+            isGlobal={isGlobal}
           />
         ) : (
           // Pour les autres types, utiliser TopElementBloc
@@ -73,6 +79,7 @@ const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElem
               return undefined;
             }).filter(Boolean) as string[]}
             type={item.type}
+            isGlobal={isGlobal}
           />
         );
       }}

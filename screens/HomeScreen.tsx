@@ -58,7 +58,7 @@ export default function HomeScreen({ isLoading }: HomeScreenProps) {
 
         <Box style={styles.section}>
           <Text style={styles.sectionTitle}>Le top mondial <Text style={{ color: theme.colors.whiteDark, }}>aujourd'hui</Text></Text>
-          <TopElementCarrousel tracks={topTrackGlobal} />
+          <TopElementCarrousel tracks={topTrackGlobal} isGlobal={true}/>
         </Box>
 
       </ScrollView>

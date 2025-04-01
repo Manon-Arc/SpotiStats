@@ -8,9 +8,10 @@ type TopElementBlocProps = {
     title: string;
     images: string[] | undefined;
     type: "artists" | "tracks" | "albums";
+    isGlobal?: boolean;
 };
 
-const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images = [], type }) => {
+const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images = [], type, isGlobal }) => {
     // Définir les couleurs du gradient en fonction du type
     const getGradientColors = () => {
         switch (type) {
