@@ -1,7 +1,7 @@
 import MusicStatScreen from "@screens/MusicStatScreen";
 
-import { useGetAllTopArtists } from "~/hook/useGetAllTopArtists";
-import { useGetAllTopTracks } from "~/hook/useGetAllTopTracks";
+import { useGetAllTopArtists } from "~/hook/useGetAllTopArtistsUser";
+import { useGetAllTopTracks } from "~/hook/useGetAllTopTracksUser";
 
 export default function MusicStat() {
   const { isLoadingTracks } = useGetAllTopTracks();

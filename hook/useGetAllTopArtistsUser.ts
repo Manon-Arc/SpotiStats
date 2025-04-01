@@ -1,9 +1,9 @@
-import { useTopArtists } from "@api/getTopArtist";
+import { useTopArtistsUser } from "~/api/getTopArtistUser";
 
 export function useGetAllTopArtists() {
-  const shortTerm = useTopArtists({ time_range: "short_term" });
-  const mediumTerm = useTopArtists({ time_range: "medium_term" });
-  const longTerm = useTopArtists({ time_range: "long_term" });
+  const shortTerm = useTopArtistsUser({ time_range: "short_term" });
+  const mediumTerm = useTopArtistsUser({ time_range: "medium_term" });
+  const longTerm = useTopArtistsUser({ time_range: "long_term" });
 
   return {
     shortArtistsUser: shortTerm.data?.items || [],

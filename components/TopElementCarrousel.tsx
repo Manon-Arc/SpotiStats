@@ -18,21 +18,21 @@ interface TopElementCarrouselProps {
 type CarrouselElement = {
   id: string;
   name: string;
-  data: (SpotifyArtist | SpotifyTrack | SpotifyAlbum | GenreCount)[];
-  type: "artists" | "tracks" | "albums" | "genres";
+  data: (SpotifyArtist | SpotifyTrack | GenreCount)[];
+  type: "artists" | "tracks" | "genres";
 };
 
-const TopElementCarrousel = ({ artists = [], tracks = [], albums = [], genres = [] }: TopElementCarrouselProps) => {
+const TopElementCarrousel = ({ artists = [], tracks = [], genres = [] }: TopElementCarrouselProps) => {
   // Création des éléments du carrousel avec typage strict
   const elements: CarrouselElement[] = [
     { id: "artists", name: "Artistes", data: artists, type: "artists" } as CarrouselElement,
     { id: "tracks", name: "Titres", data: tracks, type: "tracks" } as CarrouselElement,
-    { id: "albums", name: "Albums", data: albums, type: "albums" } as CarrouselElement,
     { id: "genres", name: "Genres", data: genres, type: "genres" } as CarrouselElement,
   ].filter((item) => item.data.length > 0);
 
   // Fonction d'extraction d'URL d'image avec typage
-  const getImageUrl = (item: SpotifyArtist | SpotifyTrack | SpotifyAlbum): string | undefined => {
+  const getImageUrl = (item: SpotifyArtist | SpotifyTrack): string | undefined => {
+
     if ('images' in item && item.images && item.images[0]) {
       return item.images[0].url;
     } else if ('album' in item && item.album?.images && item.album.images[0]) {
@@ -62,7 +62,7 @@ const TopElementCarrousel = ({ artists = [], tracks = [], albums = [], genres = 
             images={item.data.map((element) => {
               // Type guard pour s'assurer que getImageUrl reçoit le bon type
               if ('name' in element && ('images' in element || 'album' in element)) {
-                return getImageUrl(element as SpotifyArtist | SpotifyTrack | SpotifyAlbum);
+                return getImageUrl(element as SpotifyArtist | SpotifyTrack );
               }
               return undefined;
             }).filter(Boolean) as string[]}

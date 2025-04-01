@@ -7,36 +7,38 @@ import TopElementCarrousel from '@components/TopElementCarrousel';
 import { useGetCurrentPlaybackContext } from "@hooks/useGetCurrentPlaybackContext";
 import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
 import { theme } from '~/theme';
-import { useGetAllTopTracks } from '@hooks/useGetAllTopTracks';
-import { useGetAllTopArtists } from '@hooks/useGetAllTopArtists';
-import { useGetAllGenres } from '@hooks/useGetAllGenres';
+import { useGetAllTopTracksUser } from '~/hook/useGetAllTopTracksUser';
+import { useGetAllTopArtists } from '~/hook/useGetAllTopArtistsUser';
+import { useGetAllGenres } from '~/hook/useGetAllGenresUser';
+import { useGetAllTopTracks} from '~/hook/useGetAllTopTracks';
 
 interface HomeScreenProps {
   isLoading: boolean;
 }
 
-export default function HomeScreen ({isLoading}: HomeScreenProps) {
+export default function HomeScreen({ isLoading }: HomeScreenProps) {
   // Récupérer les données depuis le store
   const { currentTrack } = useGetCurrentPlaybackContext();
   const { recentlyPlayedTracks } = useGetRecentlyPlayedTracks();
-  const { mediumTracksUser } = useGetAllTopTracks();
+  const { mediumTracksUser } = useGetAllTopTracksUser();
   const { mediumArtistsUser } = useGetAllTopArtists();
   const { mediumTermGenresUser } = useGetAllGenres();
-
+  const { topTrackGlobal } = useGetAllTopTracks();
+  console.log("GLOBAL", JSON.stringify(topTrackGlobal));
+  console.log("USER", JSON.stringify(mediumTracksUser));
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.sectionTitle}>En cours d'écoute</Text>
       <CurrentTrackCard currentTrackContext={currentTrack} />
 
       <Text style={styles.sectionTitle}>Votre top <Text style={{ color: theme.colors.whiteDark, }}>depuis 4 semaines</Text></Text>
-      <TopElementCarrousel artists={mediumArtistsUser} tracks={mediumTracksUser} genres={mediumTermGenresUser}/>
+      <TopElementCarrousel artists={mediumArtistsUser} tracks={mediumTracksUser} genres={mediumTermGenresUser} />
 
       <Text style={styles.sectionTitle}>Ecouté récemment</Text>
       <RecentlyPlayedBloc tracks={recentlyPlayedTracks} />
 
       <Text style={styles.sectionTitle}>Le top mondial <Text style={{ color: theme.colors.whiteDark, }}>aujourd'hui</Text></Text>
-      {/* <TopElementCarrousel artists={topUserArtists} tracks={topUserTracks} albums={}/> */}
-
+      <TopElementCarrousel tracks={topTrackGlobal} />
 
     </ScrollView>
   );

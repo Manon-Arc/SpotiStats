@@ -2,8 +2,8 @@ import { useMemo } from "react";
 
 import TabViewDate from "~/components/TabViewDate";
 import { TabViewElementType } from "~/components/TabViewElementType";
-import { useGetAllTopArtists } from "~/hook/useGetAllTopArtists";
-import { useGetAllTopTracks } from "~/hook/useGetAllTopTracks";
+import { useGetAllTopArtists } from "~/hook/useGetAllTopArtistsUser";
+import { useGetAllTopTracks } from "~/hook/useGetAllTopTracksUser";
 import { useStore } from "~/store/zustand";
 import Box from "~/theme/Box";
 
@@ -14,34 +14,34 @@ interface MusicStatScreenProps {
 
 export default function MusicStatScreen({ isLoading }: MusicStatScreenProps) {
   const activeTabDate = useStore((state) => state.activeTabdDate);
-  const { shortTracks, mediumTracks, longTracks } = useGetAllTopTracks();
-  const { shortArtists, mediumArtists, longArtists } = useGetAllTopArtists();
+  const { shortTracksUser, mediumTracksUser, longTracksUser } = useGetAllTopTracks();
+  const { shortArtistsUser, mediumArtistsUser, longArtistsUser } = useGetAllTopArtists();
 
   const currentTracks = useMemo(() => {
     switch (activeTabDate) {
       case "short":
-        return shortTracks;
+        return shortTracksUser;
       case "medium":
-        return mediumTracks;
+        return mediumTracksUser;
       case "long":
-        return longTracks;
+        return longTracksUser;
       default:
-        return shortTracks;
+        return shortTracksUser;
     }
-  }, [activeTabDate, shortTracks, mediumTracks, longTracks]);
+  }, [activeTabDate, shortTracksUser, mediumTracksUser, longTracksUser]);
 
   const currentArtists = useMemo(() => {
     switch (activeTabDate) {
       case "short":
-        return shortArtists;
+        return shortArtistsUser;
       case "medium":
-        return mediumArtists;
+        return mediumArtistsUser;
       case "long":
-        return longArtists;
+        return longArtistsUser;
       default:
-        return shortArtists;
+        return shortArtistsUser;
     }
-  }, [activeTabDate, shortArtists, mediumArtists, longArtists]);
+  }, [activeTabDate, shortArtistsUser, mediumArtistsUser, longArtistsUser]);
 
   return (
     <Box style={{ flex: 1, backgroundColor: "black" }}>

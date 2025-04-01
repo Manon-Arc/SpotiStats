@@ -1,30 +1,16 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import RecentlyTrackCard from "./RecentlyTrackCard";
-import { Box, Text } from "~/theme";
+import { Box } from "~/theme";
 import { Button2 } from "@components/Button2";
 import { router } from "expo-router";
 import { RecentlyPlayedTracks } from "@api/type/RecentlyPlayedTracks";
+import { calculateTimeSince } from "~/lib/TimeConverter";
 
 
 // Type correct pour les props du bloc
 type RecentlyPlayedBlocProps = {
   tracks: RecentlyPlayedTracks[] | undefined;
-};
-
-// Fonction pour calculer le temps écoulé depuis la lecture
-const calculateTimeSince = (playedAt: string): string => {
-  const playedTime = new Date(playedAt).getTime();
-  const now = new Date().getTime();
-  const diffInMinutes = Math.floor((now - playedTime) / (1000 * 60));
-
-  if (diffInMinutes < 60) {
-    return `${diffInMinutes} min`;
-  } else if (diffInMinutes < 1440) {
-    return `${Math.floor(diffInMinutes / 60)} h`;
-  } else {
-    return `${Math.floor(diffInMinutes / 1440)} j`;
-  }
 };
 
 export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) {

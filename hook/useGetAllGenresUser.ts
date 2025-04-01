@@ -1,11 +1,11 @@
-import { useTopArtists } from "@api/getTopArtist";
+import { useTopArtistsUser } from "~/api/getTopArtistUser";
 import { SpotifyArtist } from "@api/type/SpotifyArtist";
 import { GenreCount } from "@api/type/GenreCount";
 
 export function useGetAllGenres() {
-  const shortTerm = useTopArtists({ time_range: "short_term" });
-  const mediumTerm = useTopArtists({ time_range: "medium_term" });
-  const longTerm = useTopArtists({ time_range: "long_term" });
+  const shortTerm = useTopArtistsUser({ time_range: "short_term" });
+  const mediumTerm = useTopArtistsUser({ time_range: "medium_term" });
+  const longTerm = useTopArtistsUser({ time_range: "long_term" });
 
   const shortTermGenres = extractUniqueGenres(shortTerm.data?.items || []);
   const mediumTermGenres = extractUniqueGenres(mediumTerm.data?.items || []);
@@ -51,21 +51,21 @@ function getGenreCounts(artists: SpotifyArtist[]): GenreCount[] {
   // Comptage des occurrences
   const counts: Record<string, number> = {};
   let totalCount = 0;
-  
+
   artists.forEach(artist => {
     (artist.genres || []).forEach(genre => {
       counts[genre] = (counts[genre] || 0) + 1;
       totalCount++;
     });
   });
-  
+
   // Conversion en tableau avec pourcentages
   const genreCounts = Object.entries(counts).map(([name, count]) => ({
     name,
     count,
     percentage: totalCount > 0 ? (count / totalCount) * 100 : 0,
   }));
-  
+
   // Tri par fréquence décroissante
   return genreCounts.sort((a, b) => b.count - a.count);
 }

@@ -29,7 +29,8 @@ export default function Authentication() {
         "playlist-modify-private",
         "user-top-read",
         "user-read-currently-playing",
-        "user-read-recently-played"
+        "user-read-recently-played",
+        "playlist-read-private",
       ],
       usePKCE: true,
       redirectUri: makeRedirectUri({

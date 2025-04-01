@@ -20,7 +20,7 @@ export type TopArtistsParams = {
 };
 
 // Fonction pour récupérer les tops artistes
-const fetchTopArtists = async (params: TopArtistsParams = {}): Promise<TopArtistsResponse> => {
+const fetchTopArtistsUser = async (params: TopArtistsParams = {}): Promise<TopArtistsResponse> => {
   try {
     const { data } = await apiClient.get("/me/top/artists", {
       params: {
@@ -37,10 +37,10 @@ const fetchTopArtists = async (params: TopArtistsParams = {}): Promise<TopArtist
 };
 
 // Hook pour utiliser la requête avec TanStack Query
-export const useTopArtists = (params: TopArtistsParams = {}) => {
+export const useTopArtistsUser = (params: TopArtistsParams = {}) => {
   return useQuery({
-    queryKey: ["topArtists", params],
-    queryFn: () => fetchTopArtists(params),
+    queryKey: ["topArtistsUser", params],
+    queryFn: () => fetchTopArtistsUser(params),
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 };

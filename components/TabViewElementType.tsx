@@ -5,14 +5,15 @@ import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import Box from "../theme/Box";
 import theme from "../theme/theme";
 
-import { SpotifyArtistFull } from "~/api/getTopArtist";
-import { SpotifyTrack } from "~/api/getTopMusic";
+import { SpotifyArtist } from "@api/type/SpotifyArtist";
+import { SpotifyTrack } from "@api/type/SpotifyTrack";
 import MusicCard from "~/components/MusicCard";
 import { Text } from "~/theme";
+import { Loader } from "./Loader";
 
 interface TabViewElementTypeProps {
   currentTracksData: SpotifyTrack[];
-  currentArtistsData: SpotifyArtistFull[];
+  currentArtistsData: SpotifyArtist[];
   isLoading: boolean;
 }
 
@@ -41,7 +42,7 @@ export function TabViewElementType({
 
   // Fonction de rendu pour les artistes
   const renderArtistItem = useCallback(
-    ({ item, index: idx }: { item: SpotifyArtistFull; index: number }) => (
+    ({ item, index: idx }: { item: SpotifyArtist; index: number }) => (
       <MusicCard
         ImageUrl={item?.images?.[0]?.url || ""}
         Titre={item?.name || ""}
@@ -56,10 +57,8 @@ export function TabViewElementType({
   const TracksRoute = useCallback(
     () =>
       isLoading ? (
-        <Box style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#1DB954" />
-          <Text style={styles.loadingText}>Chargement en cours...</Text>
-        </Box>
+        <Loader />
+
       ) : (
         <FlatList
           data={currentTracksData}
@@ -79,10 +78,7 @@ export function TabViewElementType({
   const ArtistsRoute = useCallback(
     () =>
       isLoading ? (
-        <Box style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#1DB954" />
-          <Text style={styles.loadingText}>Chargement en cours...</Text>
-        </Box>
+        <Loader />
       ) : (
         <FlatList
           data={currentArtistsData}
@@ -133,16 +129,6 @@ export function TabViewElementType({
 const styles = StyleSheet.create({
   container: {
     padding: 24,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: theme.colors.grey,
-  },
-  loadingText: {
-    color: "white",
-    marginTop: 10,
   },
   tabBar: {
     backgroundColor: "#121212",

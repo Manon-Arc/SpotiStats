@@ -1,8 +1,8 @@
-import { SpotifyArtist } from '@api/type/SpotifyArtist';
+import { SpotifyAlbum } from '@api/type/SpotifyAlbum';
 
-export type TopArtistsResponse = {
-    artists: {
-      items: SpotifyArtist[];
+export type TopAlbumsResponse = {
+    albums: {
+      items: SpotifyAlbum[];
       total: number;
       limit: number;
       offset: number;
