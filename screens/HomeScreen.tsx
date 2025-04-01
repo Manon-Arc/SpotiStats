@@ -15,9 +15,7 @@ import { Text, StyleSheet, ScrollView } from "react-native";
 
 import { theme, Box } from "~/theme";
 
-const handleGoList = async () => {
-  router.replace("/");
-};
+
 
 interface HomeScreenProps {
   isLoading: boolean;
@@ -50,6 +48,7 @@ export default function HomeScreen({ isLoading }: HomeScreenProps) {
           artists={mediumArtistsUser}
           tracks={mediumTracksUser}
           genres={mediumTermGenresUser}
+          isGlobal={false}
         />
       </Box>
 
@@ -62,7 +61,7 @@ export default function HomeScreen({ isLoading }: HomeScreenProps) {
         <Text style={styles.sectionTitle}>
           Le top mondial <Text style={{ color: theme.colors.whiteDark }}>aujourd'hui</Text>
         </Text>
-        <TopElementCarrousel tracks={topTrackGlobal} />
+        <TopElementCarrousel tracks={topTrackGlobal} isGlobal={true} />
       </Box>
     </ScrollView>
   );
