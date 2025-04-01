@@ -14,7 +14,7 @@ export const fetchArtistInfo = async (artistId: string): Promise<SpotifyArtist> 
 
 export const useArtistInfo = (artistId: string) => {
   return useQuery({
-    queryKey: ["artist"],
+    queryKey: ["artist", artistId],
     queryFn: () => fetchArtistInfo(artistId),
   });
 };
