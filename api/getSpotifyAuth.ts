@@ -1,7 +1,7 @@
+import { SpotifyUserProfile } from "@api/type/SpotifyUserProfile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { SpotifyUserProfile } from "@api/type/SpotifyUserProfile";
 
 const fetchUserProfile = async (): Promise<SpotifyUserProfile> => {
   const token = await AsyncStorage.getItem("token");
@@ -25,7 +25,11 @@ const fetchUserProfile = async (): Promise<SpotifyUserProfile> => {
 
 // Hook pour utiliser la requête avec TanStack Query
 export const useSpotifyAuth = () => {
-  const { data: userProfile, isLoading, error } = useQuery({
+  const {
+    data: userProfile,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["userProfile"],
     queryFn: fetchUserProfile,
     staleTime: 1000 * 60 * 10, // 10 minutes
@@ -35,7 +39,7 @@ export const useSpotifyAuth = () => {
   const logout = async () => {
     try {
       await AsyncStorage.removeItem("refreshToken");
-    await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("token");
     } catch (error) {
       console.error("Erreur lors de la déconnexion:", error);
     }

@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { theme } from "~/theme";
+import { router } from "expo-router";
 
 // Définir les types pour les props
 type TopElementBlocProps = {
@@ -32,90 +33,108 @@ const TopElementBloc: React.FC<TopElementBlocProps> = ({ title, images = [], typ
         return safeImages.length > index && safeImages[index] ? safeImages[index] : fallback;
     };
 
-    return (
-        <LinearGradient
-            colors={getGradientColors()}
-            style={styles.blocContainer}
-            start={{ x: 0.5, y: 0.5 }}
-            end={{ x: -0.5, y: -0.5 }}
-        >
-            <View style={styles.contentContainer}>
-                <View style={[
-                    styles.imageContainer,
-                    type === "artists" && styles.artistImageContainer,
-                ]}>
-                    {type === "artists" ? (
-                        // Nouvelle disposition des artistes sur 3 lignes
-                        <View style={styles.artistsGrid}>
-                            {/* Première ligne: image centrale */}
-                            <View style={styles.artistsRow1}>
-                                <Image
-                                    source={{ uri: getImageUrl(0) }}
-                                    style={styles.artistLargeImage}
-                                />
-                            </View>
-                            
-                            {/* Deuxième ligne: 2 images non alignées en hauteur */}
-                            <View style={styles.artistsRow2}>
-                                <View style={styles.artistRow2Left}>
-                                    <Image
-                                        source={{ uri: getImageUrl(1, "https://via.placeholder.com/45") }}
-                                        style={styles.artistMediumImage}
-                                    />
-                                </View>
-                                <View style={styles.artistRow2Right}>
-                                    <Image
-                                        source={{ uri: getImageUrl(2, "https://via.placeholder.com/40") }}
-                                        style={styles.artistSmallImage}
-                                    />
-                                </View>
-                            </View>
-                            
-                            {/* Troisième ligne: image vers la gauche */}
-                            <View style={styles.artistsRow3}>
-                                <Image
-                                    source={{ uri: getImageUrl(3, "https://via.placeholder.com/35") }}
-                                    style={styles.artistXSmallImage}
-                                />
-                            </View>
-                        </View>
-                    ) : (
-                        // Disposition en grille 2x2 pour les tracks
-                        <View style={styles.tracksGrid}>
-                            <View style={styles.tracksRow}>
-                                {/* Image principale (plus grande) */}
-                                <Image
-                                    source={{ uri: getImageUrl(0) }}
-                                    style={styles.trackLargeImage}
-                                />
-                                {/* Deuxième image (taille moyenne-grande) */}
-                                <Image
-                                    source={{ uri: getImageUrl(1, "https://via.placeholder.com/50") }}
-                                    style={styles.trackMediumLargeImage}
-                                />
-                            </View>
-                            <View style={styles.tracksRow2}>
-                                {/* Troisième image (taille moyenne) */}
-                                <Image
-                                    source={{ uri: getImageUrl(2, "https://via.placeholder.com/45") }}
-                                    style={styles.trackMediumImage}
-                                />
-                                {/* Quatrième image (plus petite) */}
-                                <Image
-                                    source={{ uri: getImageUrl(3, "https://via.placeholder.com/40") }}
-                                    style={styles.trackSmallImage}
-                                />
-                            </View>
-                        </View>
-                    )}
-                </View>
-            </View>
+    const handlePress = () => {
+        console.log("handlePress");
+        if (!isGlobal) {
+            router.push("/(tabs)/(musicStat)/musicStat");
+        } else {
+            console.log("handlePress isGlobal");
+            router.push("/(tabs)/(home)/topMonde");
+        }
+    };
 
-            {/* Zone inférieure pour le titre */}
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-        </LinearGradient>
+    return (
+        <Pressable
+            onPress={() => handlePress()}
+            style={({ pressed }) => [
+                styles.pressableContainer,
+                pressed && isGlobal ? { opacity: 0.9 } : {}
+            ]}
+        >
+            <LinearGradient
+                colors={getGradientColors()}
+                style={styles.blocContainer}
+                start={{ x: 0.5, y: 0.5 }}
+                end={{ x: -0.5, y: -0.5 }}
+            >
+                <View style={styles.contentContainer}>
+                    <View style={[
+                        styles.imageContainer,
+                        type === "artists" && styles.artistImageContainer,
+                    ]}>
+                        {type === "artists" ? (
+                            // Nouvelle disposition des artistes sur 3 lignes
+                            <View style={styles.artistsGrid}>
+                                {/* Première ligne: image centrale */}
+                                <View style={styles.artistsRow1}>
+                                    <Image
+                                        source={{ uri: getImageUrl(0) }}
+                                        style={styles.artistLargeImage}
+                                    />
+                                </View>
+
+                                {/* Deuxième ligne: 2 images non alignées en hauteur */}
+                                <View style={styles.artistsRow2}>
+                                    <View style={styles.artistRow2Left}>
+                                        <Image
+                                            source={{ uri: getImageUrl(1, "https://via.placeholder.com/45") }}
+                                            style={styles.artistMediumImage}
+                                        />
+                                    </View>
+                                    <View style={styles.artistRow2Right}>
+                                        <Image
+                                            source={{ uri: getImageUrl(2, "https://via.placeholder.com/40") }}
+                                            style={styles.artistSmallImage}
+                                        />
+                                    </View>
+                                </View>
+
+                                {/* Troisième ligne: image vers la gauche */}
+                                <View style={styles.artistsRow3}>
+                                    <Image
+                                        source={{ uri: getImageUrl(3, "https://via.placeholder.com/35") }}
+                                        style={styles.artistXSmallImage}
+                                    />
+                                </View>
+                            </View>
+                        ) : (
+                            // Disposition en grille 2x2 pour les tracks
+                            <View style={styles.tracksGrid}>
+                                <View style={styles.tracksRow}>
+                                    {/* Image principale (plus grande) */}
+                                    <Image
+                                        source={{ uri: getImageUrl(0) }}
+                                        style={styles.trackLargeImage}
+                                    />
+                                    {/* Deuxième image (taille moyenne-grande) */}
+                                    <Image
+                                        source={{ uri: getImageUrl(1, "https://via.placeholder.com/50") }}
+                                        style={styles.trackMediumLargeImage}
+                                    />
+                                </View>
+                                <View style={styles.tracksRow2}>
+                                    {/* Troisième image (taille moyenne) */}
+                                    <Image
+                                        source={{ uri: getImageUrl(2, "https://via.placeholder.com/45") }}
+                                        style={styles.trackMediumImage}
+                                    />
+                                    {/* Quatrième image (plus petite) */}
+                                    <Image
+                                        source={{ uri: getImageUrl(3, "https://via.placeholder.com/40") }}
+                                        style={styles.trackSmallImage}
+                                    />
+                                </View>
+                            </View>
+                        )}
+                    </View>
+                </View>
+
+                {/* Zone inférieure pour le titre */}
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>{title}</Text>
+                </View>
+            </LinearGradient>
+        </Pressable>
     );
 };
 
@@ -329,6 +348,10 @@ const styles = StyleSheet.create({
         color: "white",
         textAlign: "center",
         fontWeight: "bold",
+    },
+    pressableContainer: {
+        borderRadius: 12,
+        marginRight: 16,
     }
 });
 

@@ -1,3 +1,3 @@
 export type SpotifyExternalUrls = {
-    spotify: string;
+  spotify: string;
 };

@@ -8,7 +8,7 @@ import { theme } from "~/theme";
 export default function TabLayout() {
   const { userProfile } = useSpotifyAuth();
   const path = usePathname();
-  const isHome = path.includes("recentlyPlayed");
+  const hideHeader = path.includes("topMonde") || path.includes("musicStatDetails") || path.includes("artistStatDetails") || path.includes("recentlyPlayed");
 
   return (
     <Tabs
@@ -61,7 +61,7 @@ export default function TabLayout() {
       name="(home)"
       options={{
         title: "Accueil",
-        headerShown: !isHome,
+        headerShown: !hideHeader,
         tabBarIcon: ({ color }) => (
         <TabBarIcon iconName="home" color={color} library="Foundation" />
         ),
@@ -69,13 +69,14 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-      name="musicStat"
-      options={{
-        title: "musicStat",
-        tabBarIcon: ({ color }) => (
-        <TabBarIcon iconName="auto-graph" color={color} library="MaterialIcons" />
-        ),
-      }}
+        name="(musicStat)"
+        options={{
+          title: "musicStat",
+          headerShown: !hideHeader,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon iconName="auto-graph" color={color} library="MaterialIcons" />
+          ),
+        }}
       />
 
       <Tabs.Screen

@@ -44,15 +44,8 @@ const TopElementCarrousel = ({ artists = [], tracks = [], genres = [], isGlobal 
     return undefined;
   };
 
-  const handlePress = () => {
-    console.log("handlePress");
-    if (!isGlobal) {
-      console.log("handlePress isGlobal");
-      router.push("/(musicStat)");
-    }
-  };
-
   return (
+    
     <FlatList
       horizontal
       data={elements}

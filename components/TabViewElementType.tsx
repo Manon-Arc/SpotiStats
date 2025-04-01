@@ -35,6 +35,8 @@ export function TabViewElementType({
         Titre={item?.name || ""}
         Artiste={item?.artists?.[0]?.name || ""}
         Placement={idx + 1}
+        Id={item.id || ""}
+        Type="track"
       />
     ),
     []
@@ -48,6 +50,8 @@ export function TabViewElementType({
         Titre={item?.name || ""}
         Artiste={(item?.genres || []).slice(0, 2).join(", ")}
         Placement={idx + 1}
+        Id={item?.id || ""}
+        Type="artist"
       />
     ),
     []
