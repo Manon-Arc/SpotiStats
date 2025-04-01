@@ -2,8 +2,8 @@ import { useMemo } from "react";
 
 import TabViewDate from "~/components/TabViewDate";
 import { TabViewElementType } from "~/components/TabViewElementType";
-import { useGetAllTopArtists } from "~/hook/useGetAllTopArtistsUser";
-import { useGetAllTopTracks } from "~/hook/useGetAllTopTracksUser";
+import { useGetAllTopArtistsUser } from "~/hook/useGetAllTopArtistsUser";
+import { useGetAllTopTracksUser } from "~/hook/useGetAllTopTracksUser";
 import { useStore } from "~/store/zustand";
 import Box from "~/theme/Box";
 
@@ -14,8 +14,8 @@ interface MusicStatScreenProps {
 
 export default function MusicStatScreen({ isLoading }: MusicStatScreenProps) {
   const activeTabDate = useStore((state) => state.activeTabdDate);
-  const { shortTracksUser, mediumTracksUser, longTracksUser } = useGetAllTopTracks();
-  const { shortArtistsUser, mediumArtistsUser, longArtistsUser } = useGetAllTopArtists();
+  const { shortTracksUser, mediumTracksUser, longTracksUser } = useGetAllTopTracksUser();
+  const { shortArtistsUser, mediumArtistsUser, longArtistsUser } = useGetAllTopArtistsUser();
 
   const currentTracks = useMemo(() => {
     switch (activeTabDate) {

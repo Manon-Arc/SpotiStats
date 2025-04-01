@@ -1,22 +1,10 @@
-import { useEffect } from "react";
-import { useRecentlyPlayedTracks } from "@api/getRecentlyPlayedTrack";
-import { useStore } from "~/store/zustand";
+import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
 import RecentlyPlayedScreen from "@screens/RecentlyPlayedScreen";
 
-export default function recentlyPlayed() {
-  // const setRecentlyPlayedTracks = useStore((state) => state.setRecentlyPlayedTracks)
-  // const recentlyPlayedTracks = useRecentlyPlayedTracks({ limit: 10 })
-  // console.log(recentlyPlayedTracks)
+export default function RecentlyPlayed() {
+  const { isLoadingRecentlyPlayedTracks } = useGetRecentlyPlayedTracks(50)
 
-  // useEffect(() => {
+  const isLoading = isLoadingRecentlyPlayedTracks;
 
-  //   if (recentlyPlayedTracks?.data) {
-  //     setRecentlyPlayedTracks(recentlyPlayedTracks.data.items)
-  //   }
-  // }, [
-  //   recentlyPlayedTracks,
-  //   setRecentlyPlayedTracks
-  // ]);
-
-  return <RecentlyPlayedScreen />;
+  return <RecentlyPlayedScreen isLoading={isLoading}/>;
 }

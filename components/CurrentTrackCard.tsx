@@ -85,7 +85,6 @@ const CurrentTrackCard = ({ currentTrackContext }: CurrentTrackCardProps) => {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        marginBottom: 20,
         alignSelf: 'center',
         width: '100%',
     },

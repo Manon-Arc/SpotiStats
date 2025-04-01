@@ -6,7 +6,7 @@ import { calculateTimeSince } from '~/lib/TimeConverter';
 import Header from '@components/Header';
 import { Box } from "~/theme";
 import { router } from 'expo-router';
-import { Loader } from '~/components/Loader';
+import { Loader } from '@components/Loader';
 import { RecentlyPlayedTracks } from "@api/type/RecentlyPlayedTracks";
 
 interface RecentlyPlayedScreenProps {

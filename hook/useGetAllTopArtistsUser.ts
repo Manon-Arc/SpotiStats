@@ -1,6 +1,6 @@
 import { useTopArtistsUser } from "~/api/getTopArtistUser";
 
-export function useGetAllTopArtists() {
+export function useGetAllTopArtistsUser() {
   const shortTerm = useTopArtistsUser({ time_range: "short_term" });
   const mediumTerm = useTopArtistsUser({ time_range: "medium_term" });
   const longTerm = useTopArtistsUser({ time_range: "long_term" });

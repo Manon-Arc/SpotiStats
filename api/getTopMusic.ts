@@ -1,7 +1,7 @@
 import { TopTracksResponse } from "@api/type/TopTracksResponse";
 import { useQuery } from "@tanstack/react-query";
 
-import apiClient from "~/api/apiClient";
+import apiClient from "@api/apiClient";
 
 // Paramètres pour la requête
 export type TopTracksParams = {
