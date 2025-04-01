@@ -10,7 +10,7 @@ type MusicCardProps = {
   Artiste: string;
   Placement: number;
   Id: string;
-  Type: "track" | "artist";
+  Type?: "track" | "artist";
 };
 
 export default function MusicCard({

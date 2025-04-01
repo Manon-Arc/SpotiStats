@@ -9,8 +9,7 @@ import { Animated, StyleSheet, View, Text, Dimensions, Image } from "react-nativ
 import { useGetMusicInfo } from "~/hook/useGetMusicInfo";
 import { Box, theme } from "~/theme";
 
-const screenHeight = Dimensions.get("window").height;
-const HEADER_HEIGHT = 100;
+Dimensions.get("window").height;
 
 export default function MusiqueStatDetail() {
   const { id } = useLocalSearchParams();
@@ -67,24 +66,6 @@ export default function MusiqueStatDetail() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: HEADER_HEIGHT,
-    backgroundColor: theme.colors.grey,
-    zIndex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
-  },
-  headerTitle: {
-    fontWeight: "bold",
-    fontSize: 18,
-    color: theme.colors.white,
-  },
   content: {
     padding: 10,
     backgroundColor: theme.colors.grey,
@@ -134,9 +115,5 @@ const styles = StyleSheet.create({
   },
   infoSection: {
     marginTop: 20,
-  },
-  paragraph: {
-    marginVertical: 8,
-    lineHeight: 20,
   },
 });

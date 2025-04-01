@@ -1,19 +1,19 @@
-import React from "react";
-import { Text, StyleSheet, ScrollView } from "react-native";
 import CurrentTrackCard from "@components/CurrentTrackCard";
+import { Loader } from "@components/Loader";
 import RecentlyPlayedBloc from "@components/RecentlyPlayedBloc";
 import TopElementCarrousel from "@components/TopElementCarrousel";
-import { Loader } from "@components/Loader";
-
+import { useGetAllGenres } from "@hooks/useGetAllGenresUser";
+import { useGetAllTopArtistsUser } from "@hooks/useGetAllTopArtistsUser";
+import { useGetAllTopTracks } from "@hooks/useGetAllTopTracks";
+import { useGetAllTopTracksUser } from "@hooks/useGetAllTopTracksUser";
 import { useGetCurrentPlaybackContext } from "@hooks/useGetCurrentPlaybackContext";
 import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
-import { theme, Box } from "~/theme";
-import { useGetAllTopTracksUser } from "@hooks/useGetAllTopTracksUser";
-import { useGetAllTopArtistsUser } from "@hooks/useGetAllTopArtistsUser";
-import { useGetAllGenres } from "@hooks/useGetAllGenresUser";
-import { useGetAllTopTracks } from "@hooks/useGetAllTopTracks";
-import { View } from "moti";
 import { router } from "expo-router";
+import { View } from "moti";
+import React from "react";
+import { Text, StyleSheet, ScrollView } from "react-native";
+
+import { theme, Box } from "~/theme";
 
 const handleGoList = async () => {
   router.replace("/");
