@@ -1,12 +1,16 @@
 import { useSpotifyAuth } from "@api/getSpotifyAuth"; // Hook d'authentification Spotify
 import { TabBarIcon } from "@components/TabBarIcon";
-import { router, Tabs } from "expo-router";
+import { router, Tabs, usePathname } from "expo-router";
 import { Image, TouchableOpacity } from "react-native";
 
 import { theme } from "~/theme";
 
 export default function TabLayout() {
   const { userProfile } = useSpotifyAuth();
+  const path = usePathname();
+  const hideHeader = path.includes("musicStatDetails") || path.includes("artistStatDetails");
+  console.log(path);
+  console.log(hideHeader);
 
   return (
     <Tabs
@@ -18,7 +22,6 @@ export default function TabLayout() {
           borderTopColor: theme.colors.greyBright,
         },
         tabBarShowLabel: false,
-        headerShown: true,
         headerTintColor: theme.colors.white,
         headerTitleAlign: "center",
         headerStyle: {
@@ -64,16 +67,10 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="recentlyplayed"
-        options={{
-          tabBarButton: () => null,
-        }}
-      />
-
-      <Tabs.Screen
-        name="musicStat"
+        name="(musicStat)"
         options={{
           title: "musicStat",
+          headerShown: !hideHeader,
           tabBarIcon: ({ color }) => (
             <TabBarIcon iconName="auto-graph" color={color} library="MaterialIcons" />
           ),

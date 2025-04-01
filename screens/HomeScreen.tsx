@@ -19,7 +19,7 @@ const HomeScreen = () => {
       {/* <TopElementCarrousel artists={topUserArtists} tracks={topUserTracks} albums ={topUserAlbums}/> */}
 
       <Text style={styles.sectionTitle}>Ecouté récemment</Text>
-      <RecentlyPlayedBloc tracks={recentlyPlayedTracks} />
+      {/*<RecentlyPlayedBloc tracks={recentlyPlayedTracks} />*/}
 
       <Text style={styles.sectionTitle}>Le top mondial <Text style={{ color: '#B3B3B3' }}>aujourd'hui</Text></Text>
 

@@ -16,6 +16,7 @@ export default function MusicStatScreen({ isLoading }: MusicStatScreenProps) {
   const activeTabDate = useStore((state) => state.activeTabdDate);
   const { shortTracks, mediumTracks, longTracks } = useGetAllTopTracks();
   const { shortArtists, mediumArtists, longArtists } = useGetAllTopArtists();
+  console.log(shortTracks);
 
   const currentTracks = useMemo(() => {
     switch (activeTabDate) {

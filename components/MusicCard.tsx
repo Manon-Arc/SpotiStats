@@ -1,4 +1,5 @@
 import { Entypo } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { TouchableOpacity, View, Text, Image, StyleSheet, ImageSourcePropType } from "react-native";
 
 import { Box } from "~/theme";
@@ -8,17 +9,39 @@ type MusicCardProps = {
   Titre: string;
   Artiste: string;
   Placement: number;
+  Id: string;
+  Type: "track" | "artist";
 };
 
-export default function MusicCard({ ImageUrl, Titre, Artiste, Placement }: MusicCardProps) {
+export default function MusicCard({
+  ImageUrl,
+  Titre,
+  Artiste,
+  Placement,
+  Id,
+  Type,
+}: MusicCardProps) {
   const imageSource = typeof ImageUrl === "string" ? { uri: ImageUrl } : ImageUrl;
+  const redirection = () => {
+    if (Type === "track") {
+      router.push({
+        pathname: `/(tabs)/(musicStat)/musicStatDetails/[id]`,
+        params: { id: Id },
+      });
+    } else {
+      router.push({
+        pathname: `/(tabs)/(musicStat)/artistStatDetails/[id]`,
+        params: { id: Id },
+      });
+    }
+  };
 
   return (
     <Box flexDirection="row" flex={1} alignItems="center">
       <View style={styles.placementContainer}>
         <Text style={styles.placement}>#{Placement}</Text>
       </View>
-      <TouchableOpacity style={styles.container} activeOpacity={0.7}>
+      <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={() => redirection()}>
         <Image source={imageSource} style={styles.image} />
         <View style={styles.textContainer}>
           <Text style={styles.title} numberOfLines={1}>

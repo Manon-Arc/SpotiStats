@@ -38,5 +38,6 @@ export const useCurrentTrack = () => {
     refetchInterval: 1000,
     // Ne pas refetch quand la fenêtre perd le focus
     refetchOnWindowFocus: false,
+
   });
 };

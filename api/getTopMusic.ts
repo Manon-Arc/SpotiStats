@@ -1,17 +1,11 @@
 import { TopTracksResponse } from "@api/type/TopTracksResponse";
+import { ApiParams } from "@api/type/apiParams";
 import { useQuery } from "@tanstack/react-query";
 
 import apiClient from "~/api/apiClient";
 
-// Paramètres pour la requête
-export type TopTracksParams = {
-  limit?: number;
-  offset?: number;
-  time_range?: "short_term" | "medium_term" | "long_term";
-};
-
 // Fonction pour récupérer les tops morceaux
-const fetchTopTracks = async (params: TopTracksParams = {}): Promise<TopTracksResponse> => {
+const fetchTopTracks = async (params: ApiParams = {}): Promise<TopTracksResponse> => {
   try {
     const { data } = await apiClient.get("/me/top/tracks", {
       params: {
@@ -28,7 +22,7 @@ const fetchTopTracks = async (params: TopTracksParams = {}): Promise<TopTracksRe
 };
 
 // Hook pour utiliser la requête avec TanStack Query
-export const useTopTracks = (params: TopTracksParams = {}) => {
+export const useTopTracks = (params: ApiParams = {}) => {
   return useQuery({
     queryKey: ["topTracks", params],
     queryFn: () => fetchTopTracks(params),

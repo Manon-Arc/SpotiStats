@@ -1,3 +1,4 @@
+import { SpotifyTrack } from "@api/type/SpotifyTrack";
 import { useCallback, useState } from "react";
 import { ActivityIndicator, Dimensions, FlatList, StyleSheet } from "react-native";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
@@ -6,7 +7,6 @@ import Box from "../theme/Box";
 import theme from "../theme/theme";
 
 import { SpotifyArtistFull } from "~/api/getTopArtist";
-import { SpotifyTrack } from "~/api/getTopMusic";
 import MusicCard from "~/components/MusicCard";
 import { Text } from "~/theme";
 
@@ -34,6 +34,8 @@ export function TabViewElementType({
         Titre={item?.name || ""}
         Artiste={item?.artists?.[0]?.name || ""}
         Placement={idx + 1}
+        Id={item.id || ""}
+        Type="track"
       />
     ),
     []
@@ -47,6 +49,8 @@ export function TabViewElementType({
         Titre={item?.name || ""}
         Artiste={(item?.genres || []).slice(0, 2).join(", ")}
         Placement={idx + 1}
+        Id={item?.id || ""}
+        Type="artist"
       />
     ),
     []

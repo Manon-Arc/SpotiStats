@@ -1,6 +1,7 @@
+import { SpotifyExternalUrls } from "@api/type/SpotifyExternalUrls";
+import { SpotifyImage } from "@api/type/SpotifyImage";
+import { ApiParams } from "@api/type/apiParams";
 import { useQuery } from "@tanstack/react-query";
-
-import { SpotifyExternalUrls, SpotifyImage } from "./getTopMusic";
 
 import apiClient from "~/api/apiClient";
 
@@ -32,15 +33,8 @@ export type TopArtistsResponse = {
   previous: string | null;
 };
 
-// Paramètres pour la requête
-export type TopArtistsParams = {
-  limit?: number;
-  offset?: number;
-  time_range?: "short_term" | "medium_term" | "long_term";
-};
-
 // Fonction pour récupérer les tops artistes
-const fetchTopArtists = async (params: TopArtistsParams = {}): Promise<TopArtistsResponse> => {
+const fetchTopArtists = async (params: ApiParams = {}): Promise<TopArtistsResponse> => {
   try {
     const { data } = await apiClient.get("/me/top/artists", {
       params: {
@@ -57,7 +51,7 @@ const fetchTopArtists = async (params: TopArtistsParams = {}): Promise<TopArtist
 };
 
 // Hook pour utiliser la requête avec TanStack Query
-export const useTopArtists = (params: TopArtistsParams = {}) => {
+export const useTopArtists = (params: ApiParams = {}) => {
   return useQuery({
     queryKey: ["topArtists", params],
     queryFn: () => fetchTopArtists(params),
