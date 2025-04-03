@@ -1,8 +1,8 @@
 // File: components/ProfileHeader.tsx
-import { Image, StyleSheet } from "react-native";
-import { Box, Text } from "~/theme";
-import { theme } from "~/theme";
 import { TabBarIcon } from "@components/TabBarIcon";
+import { Image, StyleSheet } from "react-native";
+
+import { Box, Text, theme } from "~/theme";
 
 type ProfileHeaderProps = {
   imageUrl?: string;
@@ -14,12 +14,13 @@ export default function ProfileHeader({ imageUrl, displayName, email }: ProfileH
   return (
     <Box alignItems="center" marginBottom="l_32">
       {imageUrl ? (
-        <Image
-          source={{ uri: imageUrl }}
-          style={styles.profileImage}
-        />
+        <Image source={{ uri: imageUrl }} style={styles.profileImage} />
       ) : (
-        <Box style={styles.placeholderImage} backgroundColor="greyBright" alignItems="center" justifyContent="center">
+        <Box
+          style={styles.placeholderImage}
+          backgroundColor="greyBright"
+          alignItems="center"
+          justifyContent="center">
           <TabBarIcon iconName="person" color={theme.colors.white} library="MaterialIcons" />
         </Box>
       )}

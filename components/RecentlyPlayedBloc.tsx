@@ -1,12 +1,13 @@
-import React from "react";
-import { View, StyleSheet, Image } from "react-native";
-import RecentlyTrackCard from "./RecentlyTrackCard";
-import { Box } from "~/theme";
+import { RecentlyPlayedTracks } from "@api/type/RecentlyPlayedTracks";
 import { Button2 } from "@components/Button2";
 import { router } from "expo-router";
-import { RecentlyPlayedTracks } from "@api/type/RecentlyPlayedTracks";
-import { calculateTimeSince } from "~/lib/TimeConverter";
+import React from "react";
+import { Image, StyleSheet, View } from "react-native";
 
+import RecentlyTrackCard from "./RecentlyTrackCard";
+
+import { calculateTimeSince } from "~/lib/TimeConverter";
+import { Box } from "~/theme";
 
 // Type correct pour les props du bloc
 type RecentlyPlayedBlocProps = {
@@ -28,13 +29,15 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
         {firstFiveTracks.map((item, index) => {
           const track = item;
           // Vérifier que les propriétés nécessaires existent
-          if (!track.track?.album?.images[0]?.url || !track?.track.name || !track?.track.artists[0]?.name) {
-
+          if (
+            !track.track?.album?.images[0]?.url ||
+            !track?.track.name ||
+            !track?.track.artists[0]?.name
+          ) {
             return null;
           }
 
           return (
-
             <RecentlyTrackCard
               key={`${track.track.id}-${index}`}
               ImageUrl={track.track.album.images[0].url}
@@ -55,7 +58,11 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
             }
 
             return (
-              <Image key={`${track.id}-${index}`} source={{ uri: track?.album?.images[0].url }} style={styles.image} />
+              <Image
+                key={`${track.id}-${index}`}
+                source={{ uri: track?.album?.images[0].url }}
+                style={styles.image}
+              />
             );
           })}
         </Box>
@@ -67,7 +74,7 @@ export default function RecentlyPlayedBloc({ tracks }: RecentlyPlayedBlocProps) 
             }}
           />
         </Box>
-      </View >
+      </View>
     </>
   );
 }

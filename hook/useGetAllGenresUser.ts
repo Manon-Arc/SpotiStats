@@ -1,6 +1,7 @@
-import { useTopArtistsUser } from "~/api/getTopArtistUser";
-import { SpotifyArtist } from "@api/type/SpotifyArtist";
 import { GenreCount } from "@api/type/GenreCount";
+import { SpotifyArtist } from "@api/type/SpotifyArtist";
+
+import { useTopArtistsUser } from "~/api/getTopArtistUser";
 
 export function useGetAllGenres() {
   const shortTerm = useTopArtistsUser({ time_range: "short_term" });
@@ -11,11 +12,9 @@ export function useGetAllGenres() {
   const mediumTermGenres = extractUniqueGenres(mediumTerm.data?.items || []);
   const longTermGenres = extractUniqueGenres(longTerm.data?.items || []);
 
-  const allGenres = [...new Set([
-    ...shortTermGenres,
-    ...mediumTermGenres,
-    ...longTermGenres
-  ])].sort();
+  const allGenres = [
+    ...new Set([...shortTermGenres, ...mediumTermGenres, ...longTermGenres]),
+  ].sort();
 
   // Comptage de fréquence des genres pour chaque période
   const shortTermGenreCounts = getGenreCounts(shortTerm.data?.items || []);
@@ -34,9 +33,7 @@ export function useGetAllGenres() {
 
 // Fonction pour extraire les genres uniques d'une liste d'artistes
 function extractUniqueGenres(artists: SpotifyArtist[]): string[] {
-  return [...new Set(
-    artists.flatMap(artist => artist.genres || [])
-  )].sort();
+  return [...new Set(artists.flatMap((artist) => artist.genres || []))].sort();
 }
 
 // Fonction pour compter la fréquence des genres et calculer les pourcentages
@@ -45,8 +42,8 @@ function getGenreCounts(artists: SpotifyArtist[]): GenreCount[] {
   const counts: Record<string, number> = {};
   let totalCount = 0;
 
-  artists.forEach(artist => {
-    (artist.genres || []).forEach(genre => {
+  artists.forEach((artist) => {
+    (artist.genres || []).forEach((genre) => {
       counts[genre] = (counts[genre] || 0) + 1;
       totalCount++;
     });

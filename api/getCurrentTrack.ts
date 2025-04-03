@@ -1,7 +1,7 @@
+import { CurrentPlaybackContext } from "@api/type/CurrentPlaybackContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { CurrentPlaybackContext } from "@api/type/CurrentPlaybackContext"
 
 import apiClient from "~/api/apiClient";
 
@@ -9,14 +9,12 @@ import apiClient from "~/api/apiClient";
 const fetchCurrentTrack = async (): Promise<CurrentPlaybackContext | null> => {
   const token = await AsyncStorage.getItem("token");
 
-
   if (!token) {
     throw new Error("Token d'authentification non trouvé");
   }
 
   try {
-    const { data } = await apiClient.get("me/player/currently-playing", {
-    });
+    const { data } = await apiClient.get("me/player/currently-playing", {});
 
     return data;
   } catch (error) {
@@ -37,6 +35,5 @@ export const useCurrentTrack = () => {
     refetchInterval: 1000,
     // Ne pas refetch quand la fenêtre perd le focus
     refetchOnWindowFocus: false,
-
   });
 };

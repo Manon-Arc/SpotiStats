@@ -1,7 +1,7 @@
-import { SimpleLineIcons } from '@expo/vector-icons';
-import { forwardRef } from 'react';
-import { TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
-import { makeStyles, Text } from 'theme';
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { forwardRef } from "react";
+import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import { makeStyles, Text } from "theme";
 
 type Button2Props = {
   title?: string;
@@ -17,9 +17,7 @@ export const Button2 = forwardRef<View, Button2Props>(
         <Text variant="body" textAlign="center" fontWeight="bold" style={styles.buttonText}>
           {title}
         </Text>
-        {iconName && (
-          <SimpleLineIcons name={iconName} size={24} style={styles.icon} />
-        )}
+        {iconName && <SimpleLineIcons name={iconName} size={24} style={styles.icon} />}
       </TouchableOpacity>
     );
   }
@@ -27,12 +25,12 @@ export const Button2 = forwardRef<View, Button2Props>(
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: theme.colors.greenDarker,
     borderRadius: theme.borderRadii.l_12,
     elevation: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: theme.spacing.s_8,
     shadowOpacity: 0.75,
     shadowRadius: 3.84,

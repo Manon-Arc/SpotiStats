@@ -1,12 +1,12 @@
-import { Linking, ScrollView, StyleSheet } from "react-native";
-import { Box, Text } from "~/theme";
 import { useSpotifyAuth } from "@api/getSpotifyAuth";
-import { theme } from "~/theme";
-import { router } from "expo-router";
+import ActionButtons from "@components/ActionButton";
 import Header from "@components/Header";
 import ProfileHeader from "@components/ProfileHeader";
 import ProfileInfo from "@components/ProfileInfo";
-import ActionButtons from "@components/ActionButton";
+import { router } from "expo-router";
+import { Linking, ScrollView, StyleSheet } from "react-native";
+
+import { Box, Text, theme } from "~/theme";
 
 export default function ProfileScreen() {
   const { userProfile, logout } = useSpotifyAuth();
@@ -29,7 +29,9 @@ export default function ProfileScreen() {
   if (!userProfile) {
     return (
       <Box flex={1} backgroundColor="grey" justifyContent="center" alignItems="center">
-        <Text variant="title" color="white">Chargement du profil...</Text>
+        <Text variant="title" color="white">
+          Chargement du profil...
+        </Text>
       </Box>
     );
   }
@@ -41,23 +43,20 @@ export default function ProfileScreen() {
       </Box>
       <ScrollView style={styles.scrollView}>
         <Box flex={1} backgroundColor="grey" padding="l_32">
-          <ProfileHeader 
-            imageUrl={userProfile.images?.[0]?.url} 
+          <ProfileHeader
+            imageUrl={userProfile.images?.[0]?.url}
             displayName={userProfile.display_name}
             email={userProfile.email}
           />
-          
-          <ProfileInfo 
+
+          <ProfileInfo
             country={userProfile.country}
             product={userProfile.product}
             followers={userProfile.followers?.total || 0}
             spotifyId={userProfile.id}
           />
-          
-          <ActionButtons 
-            onOpenSpotify={openSpotifyProfile}
-            onLogout={handleLogout}
-          />
+
+          <ActionButtons onOpenSpotify={openSpotifyProfile} onLogout={handleLogout} />
         </Box>
       </ScrollView>
     </>

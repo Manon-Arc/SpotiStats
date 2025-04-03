@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import { Button } from "~/components/Button";
 import { exchangeCodeForTokenPKCE } from "~/hook/getSpotifyAccessToken";
-import { getData, storeData } from "~/hook/localStorage";
+import { storeData } from "~/hook/localStorage";
 import { Text } from "~/theme";
 import Box from "~/theme/Box";
 

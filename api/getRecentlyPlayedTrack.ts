@@ -1,7 +1,6 @@
+import { RecentlyPlayedTracksResponse } from "@api/type/RecentlyPlayedTracksResponse";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { RecentlyPlayedTracksResponse } from "@api/type/RecentlyPlayedTracksResponse"
 
 import apiClient from "~/api/apiClient";
 
@@ -11,7 +10,9 @@ export type RecentlyPlayedTracksParams = {
 };
 
 // Fonction pour récupérer les tops morceaux
-const fetchRecentlyPlayedTrack = async (params: RecentlyPlayedTracksParams = {}): Promise<RecentlyPlayedTracksResponse> => {
+const fetchRecentlyPlayedTrack = async (
+  params: RecentlyPlayedTracksParams = {}
+): Promise<RecentlyPlayedTracksResponse> => {
   const token = await AsyncStorage.getItem("token");
 
   if (!token) {

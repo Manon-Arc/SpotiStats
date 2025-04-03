@@ -4,12 +4,10 @@ import { ArtistComponentInfo } from "@components/ArtistComponent";
 import CardInfo from "@components/CardInfo";
 import { useLocalSearchParams } from "expo-router";
 import { useRef } from "react";
-import { Animated, StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import { Animated, Image, StyleSheet, Text, View } from "react-native";
 
 import { useGetMusicInfo } from "~/hook/useGetMusicInfo";
 import { Box, theme } from "~/theme";
-
-Dimensions.get("window").height;
 
 export default function MusiqueStatDetail() {
   const { id } = useLocalSearchParams();

@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import apiClient from "@api/apiClient";
 import { SpotifyArtist } from "@api/type/SpotifyArtist";
+import { useQuery } from "@tanstack/react-query";
 
 export type TopArtistsResponse = {
   items: SpotifyArtist[];

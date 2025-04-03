@@ -1,8 +1,9 @@
+import { getData } from "@hooks/localStorage";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
+
 import Authentication from "~/components/Authentication";
-import { getData } from "@hooks/localStorage";
 import { Box, Text } from "~/theme";
 
 export default function LoginScreen() {

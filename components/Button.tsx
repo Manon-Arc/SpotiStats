@@ -1,7 +1,7 @@
-import { SimpleLineIcons } from '@expo/vector-icons';
-import { forwardRef } from 'react';
-import { TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
-import { makeStyles, Text } from 'theme';
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { forwardRef } from "react";
+import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import { makeStyles, Text } from "theme";
 
 type ButtonProps = {
   title?: string;
@@ -27,13 +27,13 @@ export const Button = forwardRef<View, ButtonProps>(
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: theme.colors.green,
     textColor: theme.colors.black,
     borderRadius: theme.borderRadii.xl_24,
     elevation: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     padding: theme.spacing.m_16,
     shadowColor: theme.colors.greenBright,
     shadowOffset: {

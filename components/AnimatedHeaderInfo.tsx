@@ -1,4 +1,5 @@
 import { Animated, Dimensions, StyleSheet, Text } from "react-native";
+
 import { theme } from "~/theme";
 
 type AnimatedHeaderInfoProps = {

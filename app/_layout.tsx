@@ -1,8 +1,8 @@
 import { ThemeProvider } from "@shopify/restyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { theme } from "theme";
-import { useFonts } from "expo-font";
 
 const queryClient = new QueryClient();
 
@@ -13,10 +13,10 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   useFonts({
-    'Inter-Italic': require('~/assets/fonts/Inter-Italic.ttf'),
-    'Inter': require('~/assets/fonts/Inter.ttf'),
+    "Inter-Italic": require("~/assets/fonts/Inter-Italic.ttf"),
+    Inter: require("~/assets/fonts/Inter.ttf"),
   });
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -32,5 +32,3 @@ export default function RootLayout() {
     </QueryClientProvider>
   );
 }
-
-

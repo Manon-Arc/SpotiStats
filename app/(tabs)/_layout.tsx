@@ -8,64 +8,68 @@ import { theme } from "~/theme";
 export default function TabLayout() {
   const { userProfile } = useSpotifyAuth();
   const path = usePathname();
-  const hideHeader = path.includes("topMonde") || path.includes("musicStatDetails") || path.includes("artistStatDetails") || path.includes("recentlyPlayed");
+  const hideHeader =
+    path.includes("topMonde") ||
+    path.includes("musicStatDetails") ||
+    path.includes("artistStatDetails") ||
+    path.includes("recentlyPlayed");
 
   return (
     <Tabs
       screenOptions={{
-      tabBarActiveTintColor: theme.colors.green,
-      tabBarInactiveTintColor: theme.colors.whiteDark,
-      tabBarStyle: {
-        backgroundColor: theme.colors.grey,
-        borderTopColor: theme.colors.greyBright,
-        paddingTop: 5,
-      },
-      tabBarShowLabel: false,
-      headerShown: true,
-      headerTintColor: theme.colors.white,
-      headerTitleAlign: "center",
-      headerStyle: {
-        backgroundColor: theme.colors.grey,
-        borderBottomColor: theme.colors.greyBright,
-        borderBottomWidth: 1,
-        height: 100,
-      },
-      headerRight: () => (
-        <TouchableOpacity
-        style={{ marginRight: 15 }}
-        onPress={() => {
-          router.push("/profile");
-        }}>
-        {userProfile?.images?.[0]?.url ? (
-          <Image
-          source={{ uri: userProfile.images[0].url }}
-          style={{
-            width: 30,
-            height: 30,
-            borderRadius: 15,
-            borderWidth: 1,
-            borderColor: theme.colors.greyBright,
-          }}
-          />
-        ) : (
-          <TabBarIcon
-          iconName="person"
-          color={theme.colors.whiteDark}
-          library="MaterialIcons"
-          />
-        )}
-        </TouchableOpacity>
-      ),
+        tabBarActiveTintColor: theme.colors.green,
+        tabBarInactiveTintColor: theme.colors.whiteDark,
+        tabBarStyle: {
+          backgroundColor: theme.colors.grey,
+          borderTopColor: theme.colors.greyBright,
+          paddingTop: 5,
+        },
+        tabBarShowLabel: false,
+        headerShown: true,
+        headerTintColor: theme.colors.white,
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: theme.colors.grey,
+          borderBottomColor: theme.colors.greyBright,
+          borderBottomWidth: 1,
+          height: 100,
+        },
+        headerRight: () => (
+          <TouchableOpacity
+            style={{ marginRight: 15 }}
+            onPress={() => {
+              router.push("/profile");
+            }}>
+            {userProfile?.images?.[0]?.url ? (
+              <Image
+                source={{ uri: userProfile.images[0].url }}
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 15,
+                  borderWidth: 1,
+                  borderColor: theme.colors.greyBright,
+                }}
+              />
+            ) : (
+              <TabBarIcon
+                iconName="person"
+                color={theme.colors.whiteDark}
+                library="MaterialIcons"
+              />
+            )}
+          </TouchableOpacity>
+        ),
       }}>
       <Tabs.Screen
-      name="(home)"
-      options={{
-        title: "Accueil",
-        headerShown: !hideHeader,
-        tabBarIcon: ({ color }) => (
-        <TabBarIcon iconName="home" color={color} library="Foundation" />
-        ),
-      }}
+        name="(home)"
+        options={{
+          title: "Accueil",
+          headerShown: !hideHeader,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon iconName="home" color={color} library="Foundation" />
+          ),
+        }}
       />
 
       <Tabs.Screen
@@ -80,13 +84,13 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-      name="userStat"
-      options={{
-        title: "Statistiques utilisateur",
-        tabBarIcon: ({ color }) => (
-        <TabBarIcon iconName="graph-bar" color={color} library="Foundation" />
-        ),
-      }}
+        name="userStat"
+        options={{
+          title: "Statistiques utilisateur",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon iconName="graph-bar" color={color} library="Foundation" />
+          ),
+        }}
       />
     </Tabs>
   );

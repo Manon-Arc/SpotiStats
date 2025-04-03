@@ -1,6 +1,7 @@
-import React from "react";
 import { Entypo } from "@expo/vector-icons";
-import { TouchableOpacity, View, Text, Image, StyleSheet, ImageSourcePropType } from "react-native";
+import React from "react";
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 import { Box } from "~/theme"; // Assurez-vous que ce chemin d'importation est correct
 
 type RecentlyTrackCardProps = {
@@ -10,7 +11,12 @@ type RecentlyTrackCardProps = {
   Played_ago: string; // Changé en string pour afficher "5 min", "2 h", etc.
 };
 
-export default function RecentlyTrackCard({ ImageUrl, Titre, Artiste, Played_ago }: RecentlyTrackCardProps) {
+export default function RecentlyTrackCard({
+  ImageUrl,
+  Titre,
+  Artiste,
+  Played_ago,
+}: RecentlyTrackCardProps) {
   const imageSource = typeof ImageUrl === "string" ? { uri: ImageUrl } : ImageUrl;
 
   return (

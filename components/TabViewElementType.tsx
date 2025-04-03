@@ -1,15 +1,13 @@
-import { useCallback, useState } from "react";
-import { ActivityIndicator, Dimensions, FlatList, StyleSheet } from "react-native";
-import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-
-import Box from "../theme/Box";
-import theme from "../theme/theme";
-
 import { SpotifyArtist } from "@api/type/SpotifyArtist";
 import { SpotifyTrack } from "@api/type/SpotifyTrack";
-import MusicCard from "~/components/MusicCard";
-import { Text } from "~/theme";
+import { useCallback, useState } from "react";
+import { Dimensions, FlatList, StyleSheet } from "react-native";
+import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+
 import { Loader } from "./Loader";
+import theme from "../theme/theme";
+
+import MusicCard from "~/components/MusicCard";
 
 interface TabViewElementTypeProps {
   currentTracksData: SpotifyTrack[];
@@ -62,7 +60,6 @@ export function TabViewElementType({
     () =>
       isLoading ? (
         <Loader />
-
       ) : (
         <FlatList
           data={currentTracksData}

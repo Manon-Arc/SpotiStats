@@ -1,6 +1,5 @@
-﻿import { makeStyles } from "theme";
-
-import OnBoardingScreen from "@screens/OnBoardingScreen";
+﻿import OnBoardingScreen from "@screens/OnBoardingScreen";
+import { makeStyles } from "theme";
 
 export default function OnBoarding() {
   useStyles();

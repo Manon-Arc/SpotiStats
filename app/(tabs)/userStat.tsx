@@ -1,10 +1,8 @@
-import UserStatScreen from "@screens/UserStatScreen";
 import { useGetAllGenres } from "@hooks/useGetAllGenresUser";
+import UserStatScreen from "@screens/UserStatScreen";
 
 export default function Home() {
   const { isLoadingGenres } = useGetAllGenres();
 
-  const isLoading = isLoadingGenres;
-
-  return <UserStatScreen isLoading={isLoading} />;
+  return <UserStatScreen isLoading={isLoadingGenres} />;
 }

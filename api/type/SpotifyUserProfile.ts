@@ -11,11 +11,11 @@ export type SpotifyUserProfile = {
   };
   href: string;
   id: string;
-  images: Array<{
+  images: {
     url: string;
     height: number | null;
     width: number | null;
-  }>;
+  }[];
   product: string;
   type: string;
   uri: string;

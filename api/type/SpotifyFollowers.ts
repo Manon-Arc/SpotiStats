@@ -1,4 +1,4 @@
 export type SpotifyFollowers = {
-    href: string | null;
-    total: number;
-  };
+  href: string | null;
+  total: number;
+};

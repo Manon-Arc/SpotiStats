@@ -1,6 +1,6 @@
 import { SpotifyAlbum } from "@api/type/SpotifyAlbum";
-import { SpotifyExternalUrls } from "@api/type/SpotifyExternalUrls";
 import { SpotifyArtist } from "@api/type/SpotifyArtist";
+import { SpotifyExternalUrls } from "@api/type/SpotifyExternalUrls";
 
 export type SpotifyTrack = {
   id: string;

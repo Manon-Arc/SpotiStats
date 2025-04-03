@@ -1,7 +1,8 @@
 // Composant séparé pour chaque artiste
-import { Box, Text, theme } from "~/theme";
-import { useGetArtistInfo } from "~/hook/useGetArtistInfo";
 import { Image, StyleSheet } from "react-native";
+
+import { useGetArtistInfo } from "~/hook/useGetArtistInfo";
+import { Box, Text, theme } from "~/theme";
 
 // Définition du type pour les props
 interface ArtistComponentProps {

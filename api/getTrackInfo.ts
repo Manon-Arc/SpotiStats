@@ -1,6 +1,6 @@
 import apiClient from "@api/apiClient";
-import { useQuery } from "@tanstack/react-query";
 import { SpotifyTrack } from "@api/type/SpotifyTrack";
+import { useQuery } from "@tanstack/react-query";
 
 const fetchTrackInfo = async (trackId: string): Promise<SpotifyTrack> => {
   try {

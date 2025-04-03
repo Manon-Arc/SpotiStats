@@ -1,13 +1,14 @@
-import React from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
-import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
-import RecentlyTrackCard from '~/components/RecentlyTrackCard';
-import { calculateTimeSince } from '~/lib/TimeConverter';
-import Header from '@components/Header';
-import { Box } from "~/theme";
-import { router } from 'expo-router';
-import { Loader } from '@components/Loader';
 import { RecentlyPlayedTracks } from "@api/type/RecentlyPlayedTracks";
+import Header from "@components/Header";
+import { Loader } from "@components/Loader";
+import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
+import { router } from "expo-router";
+import React from "react";
+import { FlatList, StyleSheet } from "react-native";
+
+import RecentlyTrackCard from "~/components/RecentlyTrackCard";
+import { calculateTimeSince } from "~/lib/TimeConverter";
+import { Box } from "~/theme";
 
 interface RecentlyPlayedScreenProps {
   isLoading: boolean;
@@ -25,7 +26,7 @@ const RecentlyPlayedScreen: React.FC<RecentlyPlayedScreenProps> = ({ isLoading }
     router.back();
   };
 
-  const renderTrackItem = ({ item, index } : RenderTrackProps) => {
+  const renderTrackItem = ({ item, index }: RenderTrackProps) => {
     const track = item!.track;
     if (!track?.album?.images[0]?.url || !track.name || !track.artists[0]?.name) {
       return null;
@@ -61,7 +62,7 @@ const RecentlyPlayedScreen: React.FC<RecentlyPlayedScreenProps> = ({ isLoading }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
+    backgroundColor: "#121212",
     padding: 16,
   },
   listContainer: {

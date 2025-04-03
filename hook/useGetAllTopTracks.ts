@@ -4,9 +4,8 @@ export function useGetAllTopTracks() {
   const topTrackGlobal = useTopTracks();
 
   return {
-
     topTrackGlobal: topTrackGlobal.data?.items || [],
     isLoadingtopTrackGlobal: topTrackGlobal.isLoading,
-    error: topTrackGlobal.error
+    error: topTrackGlobal.error,
   };
 }

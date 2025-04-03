@@ -8,14 +8,11 @@ import { useGetAllTopTracks } from "@hooks/useGetAllTopTracks";
 import { useGetAllTopTracksUser } from "@hooks/useGetAllTopTracksUser";
 import { useGetCurrentPlaybackContext } from "@hooks/useGetCurrentPlaybackContext";
 import { useGetRecentlyPlayedTracks } from "@hooks/useGetRecentlyPlayedTracks";
-import { router } from "expo-router";
 import { View } from "moti";
 import React from "react";
-import { Text, StyleSheet, ScrollView } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 
-import { theme, Box } from "~/theme";
-
-
+import { Box, theme } from "~/theme";
 
 interface HomeScreenProps {
   isLoading: boolean;
@@ -61,7 +58,7 @@ export default function HomeScreen({ isLoading }: HomeScreenProps) {
         <Text style={styles.sectionTitle}>
           Le top mondial <Text style={{ color: theme.colors.whiteDark }}>aujourd'hui</Text>
         </Text>
-        <TopElementCarrousel tracks={topTrackGlobal} isGlobal={true} />
+        <TopElementCarrousel tracks={topTrackGlobal} isGlobal />
       </Box>
     </ScrollView>
   );

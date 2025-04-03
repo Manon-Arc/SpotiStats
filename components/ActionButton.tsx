@@ -1,7 +1,7 @@
-import { TouchableOpacity, StyleSheet, View } from "react-native";
-import { Text } from "~/theme";
-import { theme } from "~/theme";
 import { TabBarIcon } from "@components/TabBarIcon";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+
+import { Text, theme } from "~/theme";
 
 type ActionButtonsProps = {
   onOpenSpotify: () => void;
@@ -11,10 +11,7 @@ type ActionButtonsProps = {
 export default function ActionButtons({ onOpenSpotify, onLogout }: ActionButtonsProps) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={[styles.button, styles.spotifyButton]}
-        onPress={onOpenSpotify}
-      >
+      <TouchableOpacity style={[styles.button, styles.spotifyButton]} onPress={onOpenSpotify}>
         <View style={styles.iconContainer}>
           <TabBarIcon iconName="social-spotify" color="white" library="SimpleLineIcons" />
         </View>
@@ -23,10 +20,7 @@ export default function ActionButtons({ onOpenSpotify, onLogout }: ActionButtons
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.button, styles.logoutButton]}
-        onPress={onLogout}
-      >
+      <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={onLogout}>
         <View style={styles.iconContainer}>
           <TabBarIcon iconName="logout" color="white" library="MaterialIcons" />
         </View>
@@ -40,25 +34,25 @@ export default function ActionButtons({ onOpenSpotify, onLogout }: ActionButtons
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    flexDirection: 'column',
+    width: "100%",
+    flexDirection: "column",
     gap: 16,
     marginVertical: 12,
   },
   button: {
-    width: '100%',
+    width: "100%",
     height: 52,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 14,
     borderRadius: 8,
   },
   iconContainer: {
     width: 24,
     height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 12,
   },
   spotifyButton: {
@@ -66,5 +60,5 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     backgroundColor: theme.colors.greyBright,
-  }
+  },
 });

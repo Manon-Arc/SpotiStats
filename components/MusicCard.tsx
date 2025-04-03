@@ -1,6 +1,6 @@
 import { Entypo } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { TouchableOpacity, View, Text, Image, StyleSheet, ImageSourcePropType } from "react-native";
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { Box } from "~/theme";
 
