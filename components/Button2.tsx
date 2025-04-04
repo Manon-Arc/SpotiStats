@@ -1,4 +1,4 @@
-import { SimpleLineIcons } from "@expo/vector-icons";
+import { Feather, SimpleLineIcons } from "@expo/vector-icons";
 import { forwardRef } from "react";
 import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 import { makeStyles, Text } from "theme";
@@ -6,18 +6,20 @@ import { makeStyles, Text } from "theme";
 type Button2Props = {
   title?: string;
   iconName?: keyof typeof SimpleLineIcons.glyphMap;
+  secondIconName?: keyof typeof Feather.glyphMap;
 } & TouchableOpacityProps;
 
 export const Button2 = forwardRef<View, Button2Props>(
-  ({ title, iconName, ...touchableProps }, ref) => {
+  ({ title, iconName, secondIconName, ...touchableProps }, ref) => {
     const styles = useStyles();
 
     return (
       <TouchableOpacity ref={ref} {...touchableProps} style={[styles.button, touchableProps.style]}>
+        {iconName && <SimpleLineIcons name={iconName} size={24} style={styles.icon} />}
         <Text variant="body" textAlign="center" fontWeight="bold" style={styles.buttonText}>
           {title}
         </Text>
-        {iconName && <SimpleLineIcons name={iconName} size={24} style={styles.icon} />}
+        {secondIconName && <Feather name={secondIconName} size={24} style={styles.icon} />}
       </TouchableOpacity>
     );
   }

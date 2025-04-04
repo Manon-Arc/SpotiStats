@@ -1,6 +1,8 @@
-import { Animated, Dimensions, StyleSheet, Text } from "react-native";
+import { Animated, Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import { theme } from "~/theme";
+import { Box, theme } from "~/theme";
+import { AntDesign } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 type AnimatedHeaderInfoProps = {
   title?: string;
@@ -14,7 +16,7 @@ const HEADER_HEIGHT = 100;
 export default function AnimatedHeaderInfo({
   title = undefined,
   scrollY,
-  screenHeightValue = 0.5,
+  screenHeightValue = 0.6,
 }: AnimatedHeaderInfoProps) {
   const IMAGE_HEIGHT = screenHeight * screenHeightValue;
   const headerOpacity = scrollY.interpolate({
@@ -24,7 +26,16 @@ export default function AnimatedHeaderInfo({
   });
   return (
     <Animated.View style={[styles.header, { opacity: headerOpacity }]}>
-      <Text style={styles.headerTitle}>{title}</Text>
+      <Box style={styles.headerContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            router.back();
+          }}>
+          <AntDesign name="arrowleft" style={styles.arrowIcon} size={20} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>{title}</Text>
+        <Box width={20} />
+      </Box>
     </Animated.View>
   );
 }
@@ -41,11 +52,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingTop: 20,
+    width: "100%",
+    paddingHorizontal: 16,
   },
   headerTitle: {
     fontWeight: "bold",
     fontSize: 18,
+    color: theme.colors.white,
+  },
+  arrowIcon: {
     color: theme.colors.white,
   },
 });

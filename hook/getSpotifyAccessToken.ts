@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { getData, storeData } from "~/hook/localStorage";
+import { storeData } from "~/hook/localStorage";
 
 export const exchangeCodeForTokenPKCE = async (
   redirectUri: string,
@@ -40,7 +40,7 @@ export const exchangeCodeForTokenPKCE = async (
 };
 
 export const refreshAccessToken = async (): Promise<string> => {
-  const refreshToken = await getData("refreshToken");
+  const refreshToken = await AsyncStorage.getItem("refreshToken");
 
   if (!refreshToken) {
     throw new Error("Aucun refresh token disponible");

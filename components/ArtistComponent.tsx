@@ -16,7 +16,7 @@ export const ArtistComponentInfo = ({ artistId }: ArtistComponentProps) => {
   const imageUrl = artist?.images[0]?.url;
 
   return (
-    <Box>
+    <Box flexDirection="column" alignItems="center">
       {imageUrl && <Image source={{ uri: imageUrl }} style={styles.artistImage} />}
       <Text style={styles.h3}>{artist?.name}</Text>
     </Box>

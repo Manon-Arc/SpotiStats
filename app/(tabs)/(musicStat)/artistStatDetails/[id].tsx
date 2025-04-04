@@ -14,7 +14,6 @@ export default function ArtistStatDetails() {
   const { artist } = useGetArtistInfo(idString);
   const ImageUrl = artist?.images[0].url;
   const scrollY = useRef(new Animated.Value(0)).current;
-  console.log(idString);
   return (
     <View style={{ backgroundColor: theme.colors.greyBright, flex: 1 }}>
       <AnimatedHeaderInfo scrollY={scrollY} title={artist?.name} />

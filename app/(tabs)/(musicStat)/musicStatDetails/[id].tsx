@@ -1,10 +1,11 @@
 import AnimatedHeaderInfo from "@components/AnimatedHeaderInfo";
 import AnimatedImageInfo from "@components/AnimatedImageInfo";
 import { ArtistComponentInfo } from "@components/ArtistComponent";
+import { Button2 } from "@components/Button2";
 import CardInfo from "@components/CardInfo";
 import { useLocalSearchParams } from "expo-router";
 import { useRef } from "react";
-import { Animated, Image, StyleSheet, Text, View } from "react-native";
+import { Animated, Image, Linking, StyleSheet, Text, View } from "react-native";
 
 import { useGetMusicInfo } from "~/hook/useGetMusicInfo";
 import { Box, theme } from "~/theme";
@@ -48,14 +49,31 @@ export default function MusiqueStatDetail() {
             </Box>
             <Box paddingTop="s_8">
               <Text style={styles.h2}>Album</Text>
-              <Image source={{ uri: ImageUrl }} style={styles.imageInfo} resizeMode="cover" />{" "}
+              <Image source={{ uri: ImageUrl }} style={styles.imageInfo} resizeMode="cover" />
               <Text style={styles.h3}>{track?.album.name}</Text>
             </Box>
-            <Box paddingTop="s_8" flexDirection="row" gap="m_16">
-              {track?.artists.map((artist) => (
-                <ArtistComponentInfo key={artist.id} artistId={artist.id} />
-              ))}
+            <Box paddingTop="s_8">
+              <Text style={styles.h2}>Artistes</Text>
+              <Box paddingTop="s_8" flexDirection="row" gap="m_16">
+                {track?.artists.map((artist) => (
+                  <ArtistComponentInfo key={artist.id} artistId={artist.id} />
+                ))}
+              </Box>
             </Box>
+            {track?.uri && (
+              <Box marginBottom="m_16">
+                <Text style={styles.h2}>Lien Spotify</Text>
+                <Button2
+                  title="Ouvrir dans Spotify"
+                  style={{ marginTop: "3%" }}
+                  onPress={() => {
+                    Linking.openURL(track.uri);
+                  }}
+                  iconName="social-spotify"
+                  secondIconName="external-link"
+                />
+              </Box>
+            )}
           </View>
         </View>
       </Animated.ScrollView>
@@ -90,8 +108,8 @@ const styles = StyleSheet.create({
   },
   imageInfo: {
     resizeMode: "contain",
-    width: "30%", // Plus petit que les 40% précédents
-    aspectRatio: 1, // Maintient les proportions
+    width: "30%",
+    aspectRatio: 1,
     borderRadius: 8,
     alignSelf: "flex-start",
     marginVertical: 8,
@@ -100,7 +118,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     height: 120,
     width: 120,
-    borderRadius: 60, // La moitié de la largeur/hauteur
+    borderRadius: 60,
     marginVertical: 10,
   },
   artist: {
